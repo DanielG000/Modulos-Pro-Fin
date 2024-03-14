@@ -5,6 +5,7 @@ class CourseBase(SQLModel):
     content_id: str
     title: str
     category_id: str
+    description: str
 
     class Config:
         json_schema_extra = {
@@ -13,6 +14,7 @@ class CourseBase(SQLModel):
                 "content_id": "content id",
                 "title": "fake title",
                 "category_id": "category id",
+                "description": "description",
             }
         }
 
@@ -28,6 +30,7 @@ class CourseCreate(CourseBase):
                 "content_id": "content id",
                 "title": "fake title",
                 "category_id": "category id",
+                "description": "description",
             }
         }
 
@@ -37,12 +40,14 @@ class CourseRead(CourseBase):
     content_id: str
     title: str
     category_id: str
+    description: str
 
 
 class CourseUpdate(CourseBase):
     content_id: str | None
     title: str | None
     category_id: str | None
+    description: str | None
 
     class Config:
         json_schema_extra = {
@@ -50,5 +55,6 @@ class CourseUpdate(CourseBase):
                 "content_id": "content id",
                 "title": "fake title",
                 "category_id": "category id",
+                "description": "description",
             }
         }

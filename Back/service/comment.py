@@ -21,6 +21,9 @@ def read_comment(id: int, db: Session = Depends(get_session)) -> Comment:
 
     return comment
 
+def read_comment_by_course_id(course_id: int, db: Session = Depends(get_session)) -> Sequence[Comment]:
+    comments = db.exec(select(Comment).where(Comment.course_id == course_id)).all()
+    return comments
 
 def create_comment(
     comment: CommentCreate, db: Session = Depends(get_session)
@@ -58,3 +61,4 @@ def delete_comment(id: int, db: Session = Depends(get_session)):
     db.commit()
 
     return {"ok": True}
+

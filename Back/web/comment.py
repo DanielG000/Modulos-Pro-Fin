@@ -5,7 +5,7 @@ from database import get_session
 from errors import Duplicate, Missing
 from model.comment import CommentCreate, CommentRead, CommentUpdate
 from service.comment import (create_comment, delete_comment, read_comment,
-                             read_comments, update_comment)
+                             read_comments, update_comment, read_comment_by_course_id)
 
 router = APIRouter()
 
@@ -24,6 +24,14 @@ def get_an_comment(id: int, db: Session = Depends(get_session)):
     try:
         comment = read_comment(id, db)
         return comment
+    except Missing as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=exc.msg)
+
+
+@router.get("/course/{course_id}", summary="consulta todos los comentarios por curso", response_model=list[CommentRead])
+def get_comments_by_course_id(course_id: int, db: Session = Depends(get_session)):
+    try: 
+        return read_comment_by_course_id(course_id, db)
     except Missing as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=exc.msg)
 
