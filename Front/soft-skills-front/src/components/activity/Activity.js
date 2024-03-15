@@ -1,58 +1,118 @@
-<div>
-  <h1>Ejemplo de situación conflictiva: Equipo de desarrollo de software </h1>
-  <h1>Equipo de desarrollo de software</h1>
-  ## Personajes
-  <ul>
-    <li>
-      <strong>Ana:</strong> Programadora experimentada, muy técnica y orientada
-      a los resultados.
-    </li>
-    <li>
-      <strong>Bruno:</strong> Diseñador gráfico creativo, con poca experiencia
-      en desarrollo de software.
-    </li>
-    <li>
-      <strong>Camila:</strong> Ingeniera de software junior, entusiasta y
-      dispuesta a aprender.
-    </li>
-    <li>
-      <strong>Daniel:</strong> Tester meticuloso, muy crítico con el trabajo de
-      los demás.
-    </li>
-  </ul>
-  ## Situación conflictiva
-  <p>
-    El equipo se encuentra trabajando en un proyecto importante, pero hay mucha
-    tensión entre sus miembros:
-  </p>
-  <ul>
-    <li>
-      Ana y Bruno no se ponen de acuerdo sobre el diseño de la interfaz del
-      usuario.
-    </li>
-    <li>
-      Camila se siente excluida por Ana y Bruno, quienes no valoran sus ideas.
-    </li>
-    <li>
-      Daniel critica constantemente el trabajo de Ana, lo que genera un ambiente
-      hostil.
-    </li>
-  </ul>
-  ## Escenarios **Escenario 1:** Ana y Bruno asumen el liderazgo del proyecto,
-  ignorando las opiniones de Camila y Daniel. **Consecuencias:** * Posible
-  avance rápido en el desarrollo. * Riesgo de errores y baja satisfacción del
-  equipo. **Escenario 2:** Se organiza una reunión para discutir openly las
-  diferencias y buscar soluciones conjuntas. **Consecuencias:** * Mayor tiempo
-  de debate. * Mejor comprensión y compromiso con el proyecto. **Escenario 3:**
-  Se asignan roles específicos a cada miembro del equipo, de acuerdo a sus
-  habilidades y preferencias. **Consecuencias:** * Mayor eficiencia y trabajo en
-  equipo. * Requiere flexibilidad y adaptación de los miembros. **Escenario 4:**
-  Se contrata un mediador para facilitar la comunicación y resolver los
-  conflictos entre los miembros del equipo. **Consecuencias:** * Ambiente más
-  positivo y colaborativo. * Implica un costo adicional. ## Plantilla para la
-  evaluación de opciones | Factor | Escenario 1 | Escenario 2 | Escenario 3 |
-  Escenario 4 | |---|---|---|---|---| | Eficiencia | Alta | Media | Alta | Media
-  | | Calidad del producto | Media | Alta | Alta | Alta | | Satisfacción del
-  equipo | Baja | Alta | Media | Alta | | Costo | Bajo | Bajo | Medio | Alto | |
-  Tiempo | Rápido | Medio | Medio | Medio |
-</div>;
+import React, { useState, useEffect } from "react";
+import ResponsiveAppBar from "../responsiveappbar/ResponsiveAppBar";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import DOMPurify from "dompurify";
+
+export default function Activity() {
+  const { id } = useParams();
+  const activityId = id;
+  const [activity, setActivity] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/activity/${activityId}`)
+      .then((response) => {
+        setActivity(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los detalles de la actividad:", error);
+      });
+  }, [activityId]);
+
+  if (!activity) {
+    return <div>Cargando...</div>;
+  }
+
+  const activityExample = DOMPurify.sanitize(activity.example);
+
+  return (
+    <>
+      <ResponsiveAppBar />
+      <br />
+      <Grid
+        container
+        spacing={2}
+        style={{ padding: "10vh", height: "90vh", paddingLeft: "200px" }}
+      >
+        <Grid xs={12}>
+          <Stack spacing={2}>
+            <div>
+              <Grid container spacing={4} style={{ padding: "5vh" }}>
+                <Grid xs={8}>
+                  <div className="flex items-center space-x-2">
+                    <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                      {activity.title}
+                    </h1>
+                    {activity.objective && (
+                      <>
+                        <h3>Objetivo</h3>
+                        {activity.objective}
+                      </>
+                    )}
+                    {activity.metodology && (
+                      <>
+                        <h3>Metodología</h3>
+                        {activity.metodology}
+                      </>
+                    )}
+                    {activity.resources && (
+                      <>
+                        <h3>Recursos</h3>
+                        {activity.resources}
+                      </>
+                    )}
+                    {activity.introduction && (
+                      <>
+                        <h3>Introducción</h3>
+                        {activity.introduction}
+                      </>
+                    )}
+                    {activity.analisis && (
+                      <>
+                        <h3>Análisis de la situación</h3>
+                        {activity.analisis}
+                      </>
+                    )}
+                    {activity.evaluation && (
+                      <>
+                        <h3>Evaluación de escenarios</h3>
+                        {activity.evaluation}
+                      </>
+                    )}
+                    {activity.question1 && (
+                      <>
+                        <h3>Preguntas</h3>
+                        <ul>
+                          {activity.question1 && <li>{activity.question1}</li>}
+                          {activity.question2 && <li>{activity.question2}</li>}
+                          {activity.question3 && <li>{activity.question3}</li>}
+                          {activity.question4 && <li>{activity.question4}</li>}
+                          {activity.question5 && <li>{activity.question5}</li>}
+                        </ul>
+                      </>
+                    )}
+                  </div>
+                </Grid>
+                {activityExample && (
+                  <div>
+                    <h2>Actividad</h2>{" "}
+                    <p className="max-w-prose text-gray-500 md:text-xl/relaxed dark:text-gray-400">
+                      <div
+                        dangerouslySetInnerHTML={{ __html: activityExample }}
+                      />
+                    </p>
+                  </div>
+                )}
+              </Grid>
+            </div>
+          </Stack>
+        </Grid>
+      </Grid>
+      <br />
+      <br />
+    </>
+  );
+}

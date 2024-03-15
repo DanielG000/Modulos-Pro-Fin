@@ -7,6 +7,17 @@ class ActivityBase(SQLModel):
     content: str
     title: str
     objective: str
+    metodology: str
+    resources: str
+    introduction: str
+    analisis: str
+    evaluation: str
+    example: str
+    question1: str
+    question2: str
+    question3: str
+    question4: str
+    question5: str
 
 
     class Config:
@@ -18,6 +29,17 @@ class ActivityBase(SQLModel):
                 "content": "content",
                 "title": "title",
                 "objective": "objective",
+                "metodology": "metodology",
+                "resources": "resources",
+                "introduction": "introduction",
+                "analisis": "analisis",
+                "evaluation": "evaluation",
+                "example": "example",
+                "question1": "question1",
+                "question2": "question2",
+                "question3": "question3",
+                "question4": "question4",
+                "question5": "question5",
             }
         }
 
@@ -35,6 +57,17 @@ class ActivityCreate(ActivityBase):
                 "content": "content",
                 "title": "title",
                 "objective": "objective",
+                "metodology": "metodology",
+                "resources": "resources",
+                "introduction": "introduction",
+                "analisis": "analisis",
+                "evaluation": "evaluation",
+                "example": "example",
+                "question1": "question1",
+                "question2": "question2",
+                "question3": "question3",
+                "question4": "question4",
+                "question5": "question5",
             }
         }
 
@@ -46,6 +79,17 @@ class ActivityRead(ActivityBase):
     content: str
     title: str
     objective: str
+    metodology: str
+    resources: str
+    introduction: str
+    analisis: str
+    evaluation: str
+    example: str
+    question1: str
+    question2: str
+    question3: str
+    question4: str
+    question5: str
 
 
 class ActivityUpdate(ActivityBase):
@@ -54,6 +98,17 @@ class ActivityUpdate(ActivityBase):
     content: str
     title: str
     objective: str
+    metodology: str
+    resources: str
+    introduction: str
+    analisis: str
+    evaluation: str
+    example: str
+    question1: str
+    question2: str
+    question3: str
+    question4: str
+    question5: str
 
     class Config:
         json_schema_extra = {
@@ -63,5 +118,16 @@ class ActivityUpdate(ActivityBase):
                 "content": "content",
                 "title": "title",
                 "objective": "objective",
+                "metodology": "metodology",
+                "resources": "resources",
+                "introduction": "introduction",
+                "analisis": "analisis",
+                "evaluation": "evaluation",
+                "example": "example",
+                "question1": "question1",
+                "question2": "question2",
+                "question3": "question3",
+                "question4": "question4",
+                "question5": "question5",
             }
         }

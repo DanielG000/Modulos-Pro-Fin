@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import profilePicture from "../../resources/icons/profilePicDefault.svg";
 import { Link } from "react-router-dom";
+import CardActions from "@mui/material/CardActions";
 
 const pages = ["Inicio"];
 const settings = ["Perfil", "Cerrar sesión"];
@@ -91,12 +92,17 @@ function ResponsiveAppBar() {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link to="/dashboard" variant="body2">
-                      {page}
-                    </Link>
+                    <CardActions>
+                      <Link to="/dashboard">{page}</Link>
+                    </CardActions>
                   </Typography>
                 </MenuItem>
               ))}
+              <MenuItem key="dashboard" onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link to="/dashboard">Dashboard</Link>
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography

@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import ResponsiveAppBar from "../responsiveappbar/ResponsiveAppBar";
 import Stack from "@mui/material/Stack";
-import { MdCheckCircle, MdOutlinePlayArrow } from "react-icons/md";
+import { MdOutlinePlayArrow } from "react-icons/md";
 import Comments from "../comments/Comments";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import CardActions from "@mui/material/CardActions";
 
 export default function Course() {
   const { id } = useParams();
   const courseId = id;
   const [course, setCourse] = useState(null);
+  const [activities, setActivities] = useState([]);
 
   useEffect(() => {
     axios
@@ -20,6 +23,15 @@ export default function Course() {
       })
       .catch((error) => {
         console.error("Error al obtener los detalles del curso:", error);
+      });
+
+    axios
+      .get(`http://127.0.0.1:8000/activity/course/${courseId}`)
+      .then((response) => {
+        setActivities(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener las actividades:", error);
       });
   }, [courseId]);
 
@@ -60,31 +72,20 @@ export default function Course() {
                 </p>
               </div>
             </div>
+            {/* Display fetched activities */}
             <div className="grid gap-4 border-t border-b border-gray-200 py-4">
-              <div className="flex items-center space-x-2">
-                <h3 className="font-bold">
-                  <MdOutlinePlayArrow className="w-4 h-4 text-gray-500" />
-                  Actividad 1
-                </h3>
-              </div>
-              <div className="flex items-center space-x-2">
-                <h3 className="font-bold">
-                  <MdOutlinePlayArrow className="w-4 h-4 text-gray-500" />
-                  Actividad 2
-                </h3>
-              </div>
-              <div className="flex items-center space-x-2">
-                <h3 className="font-bold">
-                  <MdOutlinePlayArrow className="w-4 h-4 text-gray-500" />
-                  Actividad 3
-                </h3>
-              </div>
-              <div className="flex items-center space-x-2">
-                <h3 className="font-bold">
-                  <MdOutlinePlayArrow className="w-4 h-4 text-gray-500" />{" "}
-                  Actividad 4
-                </h3>
-              </div>
+              {activities.map((activity, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <h3 className="font-bold">
+                    <CardActions>
+                      <Link to={`/activity/${activity.id}`}>
+                        <MdOutlinePlayArrow className="w-4 h-4 text-gray-500" />{" "}
+                        {activity.title}
+                      </Link>
+                    </CardActions>
+                  </h3>
+                </div>
+              ))}
             </div>
           </Stack>
         </Grid>
