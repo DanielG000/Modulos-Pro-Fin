@@ -10,6 +10,7 @@ import SignUp from "./components/signup/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
 import Course from "./components/course/Course";
 import Activity from "./components/activity/Activity";
+import MentalMap from "./components/customactivities/mentalmap/MentalMap";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses/:id" element={<Course />} />
         <Route path="/activity/:id" element={<Activity />} />
+        <Route path="/activity/mentalmap" element={<MentalMap />} />
       </Routes>
     </Router>
   );
