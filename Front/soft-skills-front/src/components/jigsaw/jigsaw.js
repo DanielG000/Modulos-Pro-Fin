@@ -5,10 +5,11 @@ import Stack from "@mui/material/Stack";
 import { MdOutlinePlayArrow } from "react-icons/md";
 import Comments from "../comments/Comments";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardActions from "@mui/material/CardActions";
 
-export default function Course() {
+export default function Jigsaw() {
   const { id } = useParams();
   const courseId = id;
   const [course, setCourse] = useState(null);
@@ -56,7 +57,6 @@ export default function Course() {
                   </div>
                 </Grid>
                 <Grid
-                  item
                   xs={4}
                   style={{
                     display: "flex",
@@ -67,28 +67,21 @@ export default function Course() {
               </Grid>
               <div>
                 {" "}
-                <span className="max-w-prose text-gray-500 md:text-xl/relaxed dark:text-gray-400">
+                <p className="max-w-prose text-gray-500 md:text-xl/relaxed dark:text-gray-400">
                   {course.description}
-                </span>
+                </p>
               </div>
             </div>
             {/* Display fetched activities */}
             <div className="grid gap-4 border-t border-b border-gray-200 py-4">
-              {activities.map((activity) => (
-                <div key={activity.id} className="flex items-center space-x-2">
+              {activities.map((activity, index) => (
+                <div key={index} className="flex items-center space-x-2">
                   <h3 className="font-bold">
                     <CardActions>
-                      {activity.content_type === "comp" ? (
-                        <Link to={`${activity.path}`}>
-                          <MdOutlinePlayArrow className="w-4 h-4 text-gray-500" />{" "}
-                          {activity.title}
-                        </Link>
-                      ) : (
-                        <Link to={`/activity/${activity.id}`}>
-                          <MdOutlinePlayArrow className="w-4 h-4 text-gray-500" />{" "}
-                          {activity.title}
-                        </Link>
-                      )}
+                      <Link to={`/activity/${activity.id}`}>
+                        <MdOutlinePlayArrow className="w-4 h-4 text-gray-500" />{" "}
+                        {activity.title}
+                      </Link>
                     </CardActions>
                   </h3>
                 </div>
@@ -97,7 +90,7 @@ export default function Course() {
           </Stack>
         </Grid>
 
-        <Grid item xs={4} style={{ padding: "10px" }}>
+        <Grid xs={4} style={{ padding: "10px" }}>
           <br />
           <div className="flex flex-col gap-4 min-[300px]:sticky top-16 lg:items-start lg:justify-start">
             <div className="aspect-video w-full rounded-lg overflow-hidden">

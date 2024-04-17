@@ -54,7 +54,7 @@ export default function MentalMap() {
             <div>
               <iframe
                 style={{ width: "100%", height: "700px" }}
-                src="https://viewer.diagrams.net/?highlight=FFFFFF&edit=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1L9-7wjPNLXcUDmBdhkp-Og5nT7Aws27g%2Fview%3Fusp%3Dsharing&nav=1&title=Diagrama%20sin%20t%C3%ADtulo.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1L9-7wjPNLXcUDmBdhkp-Og5nT7Aws27g%26export%3Ddownload"
+                src="https://www.willyoupressthebutton.com/"
                 scrolling="no"
                 title="Mental Map Diagram"
               ></iframe>

@@ -4,7 +4,7 @@ from sqlmodel import Field, SQLModel
 class ActivityBase(SQLModel):
     activity_id: str
     course_id: str
-    content: str
+    content_type: str
     title: str
     objective: str
     metodology: str
@@ -18,6 +18,7 @@ class ActivityBase(SQLModel):
     question3: str
     question4: str
     question5: str
+    path:str
 
 
     class Config:
@@ -26,7 +27,7 @@ class ActivityBase(SQLModel):
                 "id": 123456,
                 "activity_id": "activity id",
                 "course_id": "course id",
-                "content": "content",
+                "content_type": "std",
                 "title": "title",
                 "objective": "objective",
                 "metodology": "metodology",
@@ -40,6 +41,7 @@ class ActivityBase(SQLModel):
                 "question3": "question3",
                 "question4": "question4",
                 "question5": "question5",
+                "path": "/activity/path",
             }
         }
 
@@ -54,7 +56,7 @@ class ActivityCreate(ActivityBase):
             "example": {
                 "activity_id": "content id",
                 "course_id": "course id",
-                "content": "content",
+                "content_type": "std",
                 "title": "title",
                 "objective": "objective",
                 "metodology": "metodology",
@@ -68,6 +70,7 @@ class ActivityCreate(ActivityBase):
                 "question3": "question3",
                 "question4": "question4",
                 "question5": "question5",
+                "path": "/activity/path",
             }
         }
 
@@ -76,7 +79,7 @@ class ActivityRead(ActivityBase):
     id: int
     activity_id: str
     course_id: str
-    content: str
+    content_type: str
     title: str
     objective: str
     metodology: str
@@ -90,12 +93,13 @@ class ActivityRead(ActivityBase):
     question3: str
     question4: str
     question5: str
+    path:str
 
 
 class ActivityUpdate(ActivityBase):
     activity_id: str
     course_id: str
-    content: str
+    content_type: str
     title: str
     objective: str
     metodology: str
@@ -109,13 +113,14 @@ class ActivityUpdate(ActivityBase):
     question3: str
     question4: str
     question5: str
+    path:str
 
     class Config:
         json_schema_extra = {
             "example": {
                 "activity_id": "content id",
                 "course_id": "course id",
-                "content": "content",
+                "content_type": "std",
                 "title": "title",
                 "objective": "objective",
                 "metodology": "metodology",
@@ -129,5 +134,6 @@ class ActivityUpdate(ActivityBase):
                 "question3": "question3",
                 "question4": "question4",
                 "question5": "question5",
+                "path": "/activity/path",
             }
         }
