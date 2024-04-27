@@ -11,6 +11,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Course from "./components/course/Course";
 import Activity from "./components/activity/Activity";
 import MentalMap from "./components/customactivities/mentalmap/MentalMap";
+import SerpienteEisenhower from "./components/customactivities/SerpienteEisenhower/SerpienteEisenhower";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/courses/:id" element={<Course />} />
         <Route path="/activity/:id" element={<Activity />} />
         <Route path="/activity/mentalmap" element={<MentalMap />} />
+        <Route path="/activity/SerpienteEisenhower" element={<SerpienteEisenhower />} />
       </Routes>
     </Router>
   );

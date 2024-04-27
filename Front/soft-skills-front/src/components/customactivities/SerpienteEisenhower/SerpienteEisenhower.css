@@ -1,0 +1,25 @@
+.Contenedor-Presentacion {
+    text-align: center;
+    height: "95vh";
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.Contenedor-Presentacion button{
+    color: black;
+    background-color: white;
+    border-radius: 16px;
+}
+
+.Juego-Serpiente {
+    height: 80vh;
+    width: 92vw;
+    margin-top: 1%;
+    margin-bottom:  1%;
+    margin-left:  3%;
+    margin-right:  3%;
+    border: 1px solid #000;
+    border-radius: 16px;
+}
