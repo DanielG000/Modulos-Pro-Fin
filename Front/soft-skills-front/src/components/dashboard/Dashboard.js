@@ -13,11 +13,14 @@ import ResponsiveAppBar from "../responsiveappbar/ResponsiveAppBar";
 import ProfileInDashboard from "../profileindashboard/ProfileInDashboard";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Navigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function Album() {
   const [courses, setCourses] = useState([]);
+  const { isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
     // Hacer una solicitud a tu API para obtener la lista de cursos
@@ -30,6 +33,14 @@ export default function Album() {
         console.error("Error al obtener los cursos:", error);
       });
   }, []);
+
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>

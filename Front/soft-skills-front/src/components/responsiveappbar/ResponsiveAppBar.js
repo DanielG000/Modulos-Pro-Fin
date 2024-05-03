@@ -14,14 +14,12 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import profilePicture from "../../resources/icons/profilePicDefault.svg";
 import { Link } from "react-router-dom";
-import CardActions from "@mui/material/CardActions";
-
-const pages = ["Inicio"];
-const settings = ["Perfil", "Cerrar sesión"];
+import { useAuth0 } from "@auth0/auth0-react";
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { logout } = useAuth0();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -89,18 +87,9 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <CardActions>
-                      <Link to="/dashboard">{page}</Link>
-                    </CardActions>
-                  </Typography>
-                </MenuItem>
-              ))}
               <MenuItem key="dashboard" onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard">Inicio</Link>
                 </Typography>
               </MenuItem>
             </Menu>
@@ -124,15 +113,11 @@ function ResponsiveAppBar() {
             Soft Skills
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
+            <Link to={`/dashboard`}>
+              <Button color="inherit" style={{ color: "white" }}>
+                Inicio
               </Button>
-            ))}
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -157,11 +142,12 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Perfil</Typography>
+              </MenuItem>
+              <MenuItem onClick={() => logout()}>
+                <Typography textAlign="center">Cerrar sesión</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
