@@ -31,9 +31,7 @@ export default function SerpienteEisenhower(){
         setJugando(1)
     }
 
-
-    useEffect(()=>{getActivity()},[])
-
+    useEffect(()=>{getActivity()},[jugando])
 
     return (
         <>
@@ -42,4 +40,4 @@ export default function SerpienteEisenhower(){
         {jugando===1? (<JuegoSerpiente />) : (!activity? (<Espera mensaje="Espera unos segundos" />) : (<Presentacion jugar={jugar} activity={activity}/>))}
         </>
     );
-} 
+}

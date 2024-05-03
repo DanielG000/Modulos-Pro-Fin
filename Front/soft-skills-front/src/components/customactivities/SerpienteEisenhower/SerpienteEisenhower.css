@@ -23,3 +23,15 @@
     border: 1px solid #000;
     border-radius: 16px;
 }
+
+#Tablero {
+    position: relative;
+    top: 15vh;
+    left: 5vh;
+    height: 60vh;
+    width: 60vh;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-shadow: #888 5px 15px 30px;
+}
