@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import ResponsiveAppBar from "../responsiveappbar/ResponsiveAppBar";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import DOMPurify from "dompurify";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Activity() {
   const { id } = useParams();
   const activityId = id;
   const [activity, setActivity] = useState(null);
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const [answers, setAnswers] = useState({
     answer1: "",
     answer2: "",
@@ -19,6 +21,7 @@ export default function Activity() {
     answer4: "",
     answer5: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -36,11 +39,38 @@ export default function Activity() {
   };
 
   const handleSubmit = () => {
-    // Aquí puedes enviar las respuestas a la base de datos
-    console.log("Respuestas enviadas:", answers);
+    if (!isAuthenticated) {
+      return <Navigate to="/" />;
+    }
+    // Iterar sobre cada pregunta y enviar su respuesta al endpoint
+    Object.entries(answers).forEach(([question, answerText]) => {
+      if (answerText.trim() !== "") {
+        const answerData = {
+          user_email: user.email,
+          activity_id: activityId,
+          question_number: parseInt(question.replace("answer", "")),
+          answer_text: answerText,
+        };
+        axios
+          .post("http://127.0.0.1:8000/answer", answerData)
+          .then((response) => {
+            console.log(`Respuesta ${question} enviada:`, response.data);
+            // Mostrar alerta
+            window.alert("Respuestas guardadas correctamente");
+
+            // Redireccionar a la ruta de las demás actividades del curso
+            navigate(`/courses/${activity.course_id}`);
+          })
+          .catch((error) => {
+            console.error(`Error al enviar respuesta ${question}:`, error);
+            window.alert("Ocurrió un error al enviar las respuestas");
+            navigate(`/courses/${activity.course_id}`);
+          });
+      }
+    });
   };
 
-  if (!activity) {
+  if (!activity || isLoading) {
     return <div>Cargando...</div>;
   }
 
@@ -127,7 +157,6 @@ export default function Activity() {
                           onChange={(e) => handleChange(e, "answer1")}
                           variant="outlined"
                           fullWidth
-                          disabled={answers.answer1 !== ""}
                         />
                       </li>
                     )}
@@ -141,7 +170,6 @@ export default function Activity() {
                           onChange={(e) => handleChange(e, "answer2")}
                           variant="outlined"
                           fullWidth
-                          disabled={answers.answer2 !== ""}
                         />{" "}
                       </li>
                     )}
@@ -155,7 +183,6 @@ export default function Activity() {
                           onChange={(e) => handleChange(e, "answer3")}
                           variant="outlined"
                           fullWidth
-                          disabled={answers.answer3 !== ""}
                         />
                       </li>
                     )}
@@ -169,7 +196,6 @@ export default function Activity() {
                           onChange={(e) => handleChange(e, "answer4")}
                           variant="outlined"
                           fullWidth
-                          disabled={answers.answer4 !== ""}
                         />
                       </li>
                     )}
@@ -183,7 +209,6 @@ export default function Activity() {
                           onChange={(e) => handleChange(e, "answer5")}
                           variant="outlined"
                           fullWidth
-                          disabled={answers.answer5 !== ""}
                         />
                       </li>
                     )}

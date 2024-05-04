@@ -41,6 +41,7 @@ class AnswerUpdate(AnswerBase):
         json_schema_extra = {
             "example": {
                 "user_email": "user_email",
+                "activity_id": "1",
                 "question_number": 1,
                 "answer_text": "new_answer_text",
             }
@@ -48,7 +49,6 @@ class AnswerUpdate(AnswerBase):
 
 
 class AnswerRead(AnswerBase):
-    answer_id: int
     user_email: str
     activity_id: str
     question_number: int

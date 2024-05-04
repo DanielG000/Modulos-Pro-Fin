@@ -47,6 +47,8 @@ def create_an_answer(answer: AnswerCreate, db: Session = Depends(get_session)):
         return create_answer(answer=answer, db=db)
     except Duplicate as exc:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=exc.msg)
+    except Exception as exc:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc))
 
 
 @router.patch(
