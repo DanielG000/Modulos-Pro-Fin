@@ -1,3 +1,7 @@
+* {
+    overflow: hidden;
+}
+
 .Contenedor-Presentacion {
     text-align: center;
     height: "95vh";
@@ -26,8 +30,8 @@
 
 #Tablero {
     position: relative;
-    top: 15vh;
-    left: 5vh;
+    top: 6vh;
+    left: 3vh;
     height: 60vh;
     width: 60vh;
     background-color: #fff;
@@ -35,3 +39,50 @@
     border-radius: 8px;
     box-shadow: #888 5px 15px 30px;
 }
+
+/*Puntaje*/
+.Marcador {
+    position: relative;
+    top: 3vh;
+    left: 3vh;
+    height: 10vh;
+    width: 40vh;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    float: left;
+}
+
+.Marcador .Numero{
+    margin-top: 2vh;
+    margin-left: 1vh;
+}
+
+.Reloj {
+    position: relative;
+    top: 3vh;
+    left: 6vh;
+    height: 10vh;
+    width: 40vh;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+}
+
+.Reloj h1{
+    margin-top: 2vh;
+    margin-left: 1vh;
+}
+
+
+/*Boton*/
+.Boton {
+    position: relative;
+    top: 3vh;
+    left: 84vw;
+    height: 10vh;
+    width: 10vh;
+    border: 1px solid #000;
+    border-radius: 8px;
+}
+
