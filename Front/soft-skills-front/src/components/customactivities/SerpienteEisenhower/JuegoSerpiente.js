@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Tablero from './Tablero'
 import Marcador from "./Marcador";
 import Reloj from "./Reloj"
@@ -60,21 +60,6 @@ export default function JuegoSerpiente(){
     }
 
     if(false){init();dibujar(serpiente)}
-
-    // temporal, para ver funcionamiento y actualizacion del marcador
-    useEffect(()=>{
-        const intervalo = setInterval(()=>{
-            if(puntaje < 100){
-                setPuntaje(puntaje + 1)
-            }else if(puntaje === 0){
-                
-            }
-        },1000)
-    
-        return () => {
-            clearInterval(intervalo)
-        };
-    },[puntaje])
 
 
     return(
