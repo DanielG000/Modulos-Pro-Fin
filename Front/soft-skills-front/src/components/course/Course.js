@@ -43,12 +43,12 @@ export default function Course() {
       <ResponsiveAppBar />
       <br />
       <Grid container spacing={4} style={{ padding: "10vh", height: "90vh" }}>
-        <Grid xs={8}>
+        <Grid item xs={8}>
           <Stack spacing={2}>
             <div>
               {" "}
               <Grid container spacing={4} style={{ padding: "5vh" }}>
-                <Grid xs={8}>
+                <Grid item xs={8}>
                   <div className="flex items-center space-x-2">
                     <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                       {course.title}
@@ -117,7 +117,7 @@ export default function Course() {
                   height="315"
                   src="https://www.youtube.com/embed/cJUXxjOeoCk"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
               </div>
             </div>

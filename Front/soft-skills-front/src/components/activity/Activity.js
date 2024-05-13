@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ResponsiveAppBar from "../responsiveappbar/ResponsiveAppBar";
-import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -12,8 +12,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 export default function Activity() {
   const { id } = useParams();
   const activityId = id;
-  const [activity, setActivity] = useState(null);
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [activity, setActivity] = useState(null);
+  const navigate = useNavigate();
+
   const [answers, setAnswers] = useState({
     answer1: "",
     answer2: "",
@@ -21,7 +23,6 @@ export default function Activity() {
     answer4: "",
     answer5: "",
   });
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -34,14 +35,27 @@ export default function Activity() {
       });
   }, [activityId]);
 
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+
+  var activityExample;
+  if (activity != null && activity.example != null) {
+    activityExample = DOMPurify.sanitize(activity.example);
+  } else {
+    activityExample = "";
+  }
+
   const handleChange = (e, question) => {
     setAnswers({ ...answers, [question]: e.target.value });
   };
 
   const handleSubmit = () => {
     if (!isAuthenticated) {
-      return <Navigate to="/" />;
+      alert("Debes iniciar sesión para enviar tus respuestas.");
+      return;
     }
+    var guardadasConExito = false;
     // Iterar sobre cada pregunta y enviar su respuesta al endpoint
     Object.entries(answers).forEach(([question, answerText]) => {
       if (answerText.trim() !== "") {
@@ -55,26 +69,21 @@ export default function Activity() {
           .post("http://127.0.0.1:8000/answer", answerData)
           .then((response) => {
             console.log(`Respuesta ${question} enviada:`, response.data);
-            // Mostrar alerta
-            window.alert("Respuestas guardadas correctamente");
-
-            // Redireccionar a la ruta de las demás actividades del curso
-            navigate(`/courses/${activity.course_id}`);
+            guardadasConExito = guardadasConExito && true;
           })
           .catch((error) => {
             console.error(`Error al enviar respuesta ${question}:`, error);
-            window.alert("Ocurrió un error al enviar las respuestas");
-            navigate(`/courses/${activity.course_id}`);
           });
       }
     });
+
+    if (guardadasConExito) {
+      alert("Respuestas guardadas con éxito.");
+      navigate("/dashboard");
+    } else {
+      alert("Ya hay respuestas guardadas para esta actividad.");
+    }
   };
-
-  if (!activity || isLoading) {
-    return <div>Cargando...</div>;
-  }
-
-  const activityExample = DOMPurify.sanitize(activity.example);
 
   return (
     <>
@@ -85,11 +94,11 @@ export default function Activity() {
         spacing={2}
         style={{ padding: "10vh", height: "90vh", paddingLeft: "200px" }}
       >
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <Stack spacing={2}>
             <div>
               <Grid container spacing={4} style={{ padding: "5vh" }}>
-                <Grid xs={8}>
+                <Grid item xs={8}>
                   <div className="flex items-center space-x-2">
                     <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                       {activity.title}
@@ -148,11 +157,14 @@ export default function Activity() {
                   <h3>Preguntas</h3>
                   <ul>
                     {activity.question1 && (
-                      <li>
-                        {activity.question1}{" "}
+                      <li
+                        style={{
+                          padding: "10px",
+                        }}
+                      >
+                        {activity.question1} <br />
                         <TextField
                           id="answer1"
-                          label="Respuesta 1"
                           value={answers.answer1}
                           onChange={(e) => handleChange(e, "answer1")}
                           variant="outlined"
@@ -162,10 +174,9 @@ export default function Activity() {
                     )}
                     {activity.question2 && (
                       <li>
-                        {activity.question2}{" "}
+                        {activity.question2} <br />
                         <TextField
                           id="answer2"
-                          label="Respuesta 2"
                           value={answers.answer2}
                           onChange={(e) => handleChange(e, "answer2")}
                           variant="outlined"
@@ -175,10 +186,9 @@ export default function Activity() {
                     )}
                     {activity.question3 && (
                       <li>
-                        {activity.question3}
+                        {activity.question3} <br />
                         <TextField
                           id="answer3"
-                          label="Respuesta 3"
                           value={answers.answer3}
                           onChange={(e) => handleChange(e, "answer3")}
                           variant="outlined"
@@ -188,10 +198,9 @@ export default function Activity() {
                     )}
                     {activity.question4 && (
                       <li>
-                        {activity.question4}
+                        {activity.question4} <br />
                         <TextField
                           id="answer4"
-                          label="Respuesta 4"
                           value={answers.answer4}
                           onChange={(e) => handleChange(e, "answer4")}
                           variant="outlined"
@@ -201,10 +210,9 @@ export default function Activity() {
                     )}
                     {activity.question5 && (
                       <li>
-                        {activity.question5}
+                        {activity.question5} <br />
                         <TextField
                           id="answer5"
-                          label="Respuesta 5"
                           value={answers.answer5}
                           onChange={(e) => handleChange(e, "answer5")}
                           variant="outlined"

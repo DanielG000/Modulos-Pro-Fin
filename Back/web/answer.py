@@ -5,7 +5,7 @@ from database import get_session
 from errors import Duplicate, Missing
 from model.answer import AnswerCreate, AnswerRead, AnswerUpdate
 from service.answer import (create_answer, delete_answer, read_answers,
-                            update_answer, read_answer_by_id, read_answers_by_activity_user_question)
+                            update_answer, read_answer_by_id, read_answers_by_activity_user_question, read_answers_by_activity_user)
 
 
 router = APIRouter()
@@ -32,6 +32,14 @@ def get_an_answer(id: int, db: Session = Depends(get_session)):
 def get_answers_by_activity_user_question( user_email: str, activity_id: int, question_number: int, db: Session = Depends(get_session)):
     try:
         answers = read_answers_by_activity_user_question(activity_id, user_email, question_number, db)
+        return answers
+    except Missing as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=exc.msg)
+    
+@router.get("/{activity_id}/{user_email}", summary="Consulta una respuesta por actividad y usuario", response_model=list[AnswerRead])
+def get_answers_by_activity_user( activity_id: str, user_email: str, db: Session = Depends(get_session)):
+    try:
+        answers = read_answers_by_activity_user(activity_id, user_email, db)
         return answers
     except Missing as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=exc.msg)

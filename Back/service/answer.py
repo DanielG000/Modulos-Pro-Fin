@@ -9,12 +9,11 @@ from model.answer import Answer, AnswerCreate, AnswerUpdate, AnswerRead
 
 
 
+MISSING_ANSWER_ERROR = "Esta respuesta no está registrada"
+
 def read_answers(db: Session = Depends(get_session)) -> Sequence[Answer]:
     answers = db.exec(select(Answer)).all()
     return answers
-
-MISSING_ANSWER_ERROR = "Esta respuesta no está registrada"
-
 
 def read_answer_by_id(answer_id: int, db: Session = Depends(get_session)) -> Answer:
     answer = db.get(Answer, answer_id)
@@ -24,6 +23,10 @@ def read_answer_by_id(answer_id: int, db: Session = Depends(get_session)) -> Ans
 
 def read_answers_by_activity_user_question(activity_id: int, user_email: str, question_number: int, db: Session = Depends(get_session)) -> Sequence[Answer]:
     answers = db.exec(select(Answer).where(Answer.activity_id == activity_id).where(Answer.user_email == user_email).where(Answer.question_number == question_number)).all()
+    return answers
+
+def read_answers_by_activity_user(activity_id: str, user_email: str, db: Session = Depends(get_session)) -> Sequence[Answer]:
+    answers = db.exec(select(Answer).where(Answer.activity_id == activity_id).where(Answer.user_email == user_email)).all()
     return answers
 
 

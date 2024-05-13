@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from config import settings
-from database import create_db_and_tables
 from utils.logger import logger_config
 from web import api as api_routes
 
@@ -13,7 +12,6 @@ logger = logger_config(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    create_db_and_tables()
 
     logger.info("startup: triggered")
 
