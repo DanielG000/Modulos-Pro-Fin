@@ -16,7 +16,7 @@ export default function Course() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/courses/${courseId}`)
+      .get(`https://tg2-wfw8.onrender.com/courses/${courseId}`)
       .then((response) => {
         setCourse(response.data);
       })
@@ -25,7 +25,7 @@ export default function Course() {
       });
 
     axios
-      .get(`http://127.0.0.1:8000/activity/course/${courseId}`)
+      .get(`https://tg2-wfw8.onrender.com/activity/course/${courseId}`)
       .then((response) => {
         setActivities(response.data);
       })

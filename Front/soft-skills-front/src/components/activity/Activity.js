@@ -26,7 +26,7 @@ export default function Activity() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/activity/${activityId}`)
+      .get(`https://tg2-wfw8.onrender.com/activity/${activityId}`)
       .then((response) => {
         setActivity(response.data);
       })
@@ -66,7 +66,7 @@ export default function Activity() {
           answer_text: answerText,
         };
         axios
-          .post("http://127.0.0.1:8000/answer", answerData)
+          .post("https://tg2-wfw8.onrender.com/answer", answerData)
           .then((response) => {
             console.log(`Respuesta ${question} enviada:`, response.data);
             guardadasConExito = guardadasConExito && true;

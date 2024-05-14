@@ -8,7 +8,7 @@ export default function JigSaw() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/activity/8`)
+      .get(`https://tg2-wfw8.onrender.com/activity/8`)
       .then((response) => {
         setActivity(response.data);
       })
