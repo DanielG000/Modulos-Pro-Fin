@@ -25,17 +25,22 @@ export default function Activity() {
   });
 
   useEffect(() => {
-    axios
-      .get(`https://tg2-wfw8.onrender.com/activity/${activityId}`)
-      .then((response) => {
-        setActivity(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener los detalles de la actividad:", error);
-      });
-  }, [activityId]);
+    if (isAuthenticated) {
+      axios
+        .get(`https://tg2-wfw8.onrender.com/activity/${activityId}`)
+        .then((response) => {
+          setActivity(response.data);
+        })
+        .catch((error) => {
+          console.error(
+            "Error al obtener los detalles de la actividad:",
+            error
+          );
+        });
+    }
+  }, [activityId, isAuthenticated]);
 
-  if (isLoading) {
+  if (isLoading || !activity) {
     return <div>Cargando...</div>;
   }
 
