@@ -40,6 +40,15 @@
     box-shadow: #888 5px 15px 30px;
 }
 
+#Tablero canvas{
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+}
+
 /*Puntaje*/
 .Marcador {
     position: relative;

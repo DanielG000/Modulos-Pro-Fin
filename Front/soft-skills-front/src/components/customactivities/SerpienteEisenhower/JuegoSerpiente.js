@@ -1,24 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tablero from './Tablero'
-import Marcador from "./Marcador";
+import Marcador from './Marcador';
 import Reloj from "./Reloj"
 
 export default function JuegoSerpiente(){
 
-    const [ mapa, setMapa ] = useState({})
-    const [ serpiente, setSerpiente ] = useState({})
-    const [ frutos, setFrutos ] = useState([])
-    const [ puntaje, setPuntaje] = useState(0)
+    // Valores predefinidos
 
-    const [ tablero, setTablero ] = useState(null);
-
-
-    let niveles = {
-        1:{tamano: {ancho: 20, alto: 20}, tiempo: 3},
-        2:{tamano: {ancho: 30, alto: 20}, tiempo: 4},
-        3:{tamano: {ancho: 40, alto: 30}, tiempo: 6}
+    const niveles = {
+        1:{tamano: {ancho: 30, alto: 20}, tiempo: 5, descanso: 5},
+        2:{tamano: {ancho: 40, alto: 30}, tiempo: 8, descanso: 5},
+        3:{tamano: {ancho: 50, alto: 40}, tiempo: 11, descanso: 5},
+        4:{tamano: {ancho: 50, alto: 40}, tiempo: 15, descanso: 0}
     }
 
+    const direcciones = {
+        neutral:    [0,0],
+        arriba:     [0,-1],
+        abajo:      [0, 1],
+        derecha:    [1,0],
+        izquierda:  [-1,0],
+    }
+
+
+    // Estados
+
+    const [ mapa, setMapa ] = useState(niveles[1])
+    const [ serpiente, setSerpiente ] = useState({
+        direccion: direcciones.neutral,
+        cabeza: [10,10],
+        cola: [],
+        largo: 2
+    })
+    const [ puntaje, setPuntaje] = useState(0)
+    const [ interruptor, setInterruptor] = useState(false)
+    const [ frutos, setFrutos ] = useState([])
+
+
+
+
+    // Metodos
 
     const generarFruto = () => {
         let num = Math.floor(Math.random() * 4);
@@ -31,42 +52,88 @@ export default function JuegoSerpiente(){
         setFrutos([...frutos, fruto])
     }
 
+    const moverse = () =>{
+        const dentroAncho = serpiente.cabeza[0] > -1 && serpiente.cabeza[0] < mapa.tamano.ancho;
+        const dentroAlto = serpiente.cabeza[1] > -1 && serpiente.cabeza[1] < mapa.tamano.alto;
+        const dentro = dentroAncho && dentroAlto;
+
+        if(dentro){
+            let nuevaCabeza = serpiente.cabeza.map((valor, index)=>(valor + serpiente.direccion[index]))
+            let nuevaCola = serpiente.cola
+
+            let diferentes = serpiente.cabeza[0] !== nuevaCabeza[0] || serpiente.cabeza[1] !== nuevaCabeza[1]
+
+            if(diferentes){
+                nuevaCola.push(serpiente.cabeza)
+                if(nuevaCola.length > serpiente.largo){
+                    nuevaCola.shift()
+                }
+                setSerpiente({...serpiente,
+                    cabeza: nuevaCabeza,
+                    cola:   nuevaCola,
+                })
+            }
+        }
+    }
+
+
+
+    const cambiaDireccion = (e) => {
+        const tecla = e.key;
+
+        setInterruptor(true);
+
+        if(tecla === "ArrowUp" || tecla === "W" || tecla === "w"){
+            setSerpiente({...serpiente,
+                direccion: direcciones.arriba,
+            })
+        }else if(tecla === "ArrowDown" || tecla === "S" || tecla === "s"){
+            setSerpiente({...serpiente,
+                direccion: direcciones.abajo,
+            })
+        }else if(tecla === "ArrowLeft" || tecla === "A" || tecla === "a"){
+            setSerpiente({...serpiente,
+                direccion: direcciones.izquierda,
+            })
+        }else if(tecla === "ArrowRight" || tecla === "D" || tecla === "d"){
+            setSerpiente({...serpiente,
+                direccion: direcciones.derecha,
+            })
+        }else{
+            console.log("tecla no peritida");
+            console.log(e.key);
+        }
+    }
+
+
+    // Sin proposito / temporal
     function init (){
-        setMapa(niveles[1]);
-        setSerpiente({
-            cabeza: {x: 10, y: 10},
-            cola: [],
-            largo: 2
-        });
+        setMapa(niveles[1])
         generarFruto();
         setPuntaje(puntaje + 1);
     }
 
-    const dibujar = (serpiente)=>{
-        tablero.fillStyle = 'gray';
-        console.log("color");
-        let ancho = Math.floor(tablero.canvas.width / mapa.tamano.ancho);
-        let alto = Math.floor(tablero.canvas.height / mapa.tamano.alto);
-        tablero.fillRect(0,0,tablero.canvas.width,tablero.canvas.height);
-
-        //serpiente
-        console.log('serpiente');
-        tablero.fillStyle = 'black';
-        let x1 = serpiente.cabeza.x * ancho;
-        let y1 = serpiente.cabeza.y * alto;
-        let x2 = x1 + ancho;
-        let y2 = y1 + alto;
-        tablero.fillRect(x1, y1, x2, y2)
+    if(false){
+        init()
     }
 
-    if(false){init();dibujar(serpiente)}
+    useEffect(()=>{
 
+        document.addEventListener('keydown', cambiaDireccion, true);
+        document.removeEventListener('keydown', cambiaDireccion, false)
+
+        let id = setInterval(()=>{
+            moverse()
+        },800)
+
+        return () => clearInterval(id)
+    })
 
     return(
         <div className="Juego-Serpiente">
             <Marcador puntaje={puntaje}/>
-            <Reloj tiempo={5} interruptor={true}/>
-            <Tablero setPlano={setTablero} />
+            <Reloj tiempo={5} interruptor={interruptor}/>
+            <Tablero serpiente={serpiente} mapa={mapa}/>
         </div>
     )
 
