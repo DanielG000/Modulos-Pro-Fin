@@ -6,7 +6,6 @@ import Reloj from "./Reloj"
 export default function JuegoSerpiente(){
 
     // Valores predefinidos
-
     const niveles = {
         1:{tamano: {ancho: 30, alto: 20}, tiempo: 5, descanso: 5},
         2:{tamano: {ancho: 40, alto: 30}, tiempo: 8, descanso: 5},
@@ -43,13 +42,28 @@ export default function JuegoSerpiente(){
 
     const generarFruto = () => {
         let num = Math.floor(Math.random() * 4);
-        let x = Math.floor(Math.random() * mapa.ancho);
-        let y = Math.floor(Math.random() * mapa.alto);
+        let x = Math.floor(Math.random() * mapa.tamano.ancho);
+        let y = Math.floor(Math.random() * mapa.tamano.alto);
+
+        let repetido = false;
+        if (frutos.length > 0){
+            repetido = frutos.reduce((final, elem)=>{
+                if(final === true){
+                    return final
+                }else if(elem.posicion.x === x && elem.posicion.y === y){
+                    return true
+                }else{
+                    return false
+                }
+            })
+        }
 
         let valor = [50,30,20,10];
         let fruto = {tipo: num, valor: valor[num], posicion: {x: x, y: y}} ;
 
-        setFrutos([...frutos, fruto])
+        if(!repetido){
+            setFrutos([...frutos, fruto])
+        }
     }
 
     const moverse = () =>{
@@ -124,6 +138,9 @@ export default function JuegoSerpiente(){
 
         let id = setInterval(()=>{
             moverse()
+            if(frutos.length <= 4){
+                generarFruto()
+            }
         },800)
 
         return () => clearInterval(id)
@@ -133,7 +150,7 @@ export default function JuegoSerpiente(){
         <div className="Juego-Serpiente">
             <Marcador puntaje={puntaje}/>
             <Reloj tiempo={5} interruptor={interruptor}/>
-            <Tablero serpiente={serpiente} mapa={mapa}/>
+            <Tablero serpiente={serpiente} frutos={frutos} mapa={mapa}/>
         </div>
     )
 

@@ -2,7 +2,7 @@ import React, {  useEffect, useRef } from "react";
 
 export default function Tablero(props){
 
-    const { serpiente , mapa } = props;
+    const { serpiente , mapa, frutos } = props;
 
     const ref = useRef()
 
@@ -17,13 +17,27 @@ export default function Tablero(props){
             canvas.fillStyle = 'gray';
             canvas.fillRect(0,0,canvas.canvas.width,canvas.canvas.height);
 
+            const hayFrutos = frutos.length > 0;
+            console.log(hayFrutos);
+            if(hayFrutos){
+                frutos.map((elemento) => {
+                    let color = ['yellow','red','green','cyan']
+                    canvas.fillStyle = color[elemento.tipo] ;
+                    console.log(elemento);
+                    let x1 = elemento.posicion.x * ancho; 
+                    let y1 = elemento.posicion.y * alto;
+                    canvas.fillRect(x1,y1,ancho,alto);
+                    return(0)
+                })
+            }
+
             canvas.fillStyle = 'green';
             let x1 = serpiente.cabeza[0] * ancho;
             let y1 = serpiente.cabeza[1] * alto;
             canvas.fillRect(x1,y1,ancho,alto);
 
-            const hayNodos = serpiente.cola.length > 0;
-            if(hayNodos){
+            const hayCola = serpiente.cola.length > 0;
+            if(hayCola){
                 serpiente.cola.map((elemento) => {
                     let x1 = elemento[0] * ancho; 
                     let y1 = elemento[1] * alto;
@@ -31,6 +45,8 @@ export default function Tablero(props){
                     return(0)
                 })
             }
+
+            
         }
     }
 
