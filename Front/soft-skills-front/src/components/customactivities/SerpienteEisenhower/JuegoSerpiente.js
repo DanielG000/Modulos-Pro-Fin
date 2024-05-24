@@ -157,6 +157,7 @@ export default function JuegoSerpiente(){
     }
 
     const nuevoIntento = ()=>{
+        setPuntaje(0)
         setIntentos(intentos + 1);
         setSerpiente(serpienteDefault);
         setValores(valoresDefault)
@@ -175,12 +176,18 @@ export default function JuegoSerpiente(){
 
             if(diferentes){
                 nuevaCola.push(serpiente.cabeza)
-                if(nuevaCola.length > serpiente.largo){
+                let largo = Math.floor(puntaje / 100)
+                if(largo < serpiente.largo){
+                    largo = serpiente.largo
+                }
+
+                if(nuevaCola.length > largo){
                     nuevaCola.shift()
                 }
                 setSerpiente({...serpiente,
                     cabeza: nuevaCabeza,
                     cola:   nuevaCola,
+                    largo: largo,
                 })
                 colision(nuevaCabeza[0], nuevaCabeza[1]);
             }
@@ -196,19 +203,19 @@ export default function JuegoSerpiente(){
 
         setInterruptor(true);
 
-        if(tecla === "ArrowUp" || tecla === "W" || tecla === "w"){
+        if((tecla === "ArrowUp" || tecla === "W" || tecla === "w") && (serpiente.direccion[1] !== 1)){
             setSerpiente({...serpiente,
                 direccion: direcciones.arriba,
             })
-        }else if(tecla === "ArrowDown" || tecla === "S" || tecla === "s"){
+        }else if((tecla === "ArrowDown" || tecla === "S" || tecla === "s") && (serpiente.direccion[1] !== -1)){
             setSerpiente({...serpiente,
                 direccion: direcciones.abajo,
             })
-        }else if(tecla === "ArrowLeft" || tecla === "A" || tecla === "a"){
+        }else if((tecla === "ArrowLeft" || tecla === "A" || tecla === "a") && (serpiente.direccion[0] !== 1)){
             setSerpiente({...serpiente,
                 direccion: direcciones.izquierda,
             })
-        }else if(tecla === "ArrowRight" || tecla === "D" || tecla === "d"){
+        }else if((tecla === "ArrowRight" || tecla === "D" || tecla === "d") && (serpiente.direccion[0] !== -1)){
             setSerpiente({...serpiente,
                 direccion: direcciones.derecha,
             })
