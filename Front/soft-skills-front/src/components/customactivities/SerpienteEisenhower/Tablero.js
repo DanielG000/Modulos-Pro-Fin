@@ -18,12 +18,10 @@ export default function Tablero(props){
             canvas.fillRect(0,0,canvas.canvas.width,canvas.canvas.height);
 
             const hayFrutos = frutos.length > 0;
-            console.log(hayFrutos);
             if(hayFrutos){
                 frutos.map((elemento) => {
                     let color = ['yellow','red','green','cyan']
                     canvas.fillStyle = color[elemento.tipo] ;
-                    console.log(elemento);
                     let x1 = elemento.posicion.x * ancho; 
                     let y1 = elemento.posicion.y * alto;
                     canvas.fillRect(x1,y1,ancho,alto);

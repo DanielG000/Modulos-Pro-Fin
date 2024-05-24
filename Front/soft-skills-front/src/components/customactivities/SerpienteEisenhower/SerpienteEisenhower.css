@@ -37,7 +37,6 @@
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 8px;
-    box-shadow: #888 5px 15px 30px;
 }
 
 #Tablero canvas{
@@ -67,22 +66,83 @@
     margin-left: 1vh;
 }
 
+/*Estilo de reloj*/
 .Reloj {
     position: relative;
     top: 3vh;
     left: 6vh;
     height: 10vh;
-    width: 40vh;
+    width: 30vh;
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 8px;
+    float: left;
 }
 
 .Reloj h1{
     margin-top: 2vh;
-    margin-left: 1vh;
+    margin-left: 3vh;
 }
 
+/*Pustos por Fruto*/
+.Valores {
+    position: relative;
+    top: 3vh;
+    left: 9vh;
+    height: 10vh;
+    width: 40vh;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    float: left;
+}
+
+.Valores *{
+    margin-top: 3vh;
+    margin-left: 1vh;
+    float: left;
+}
+
+.Valores .Urgente{
+    background-color: yellow;
+    height: 3vh;
+    width: 3vh;
+    float: left;
+}
+
+.Valores .UrgenteImportante{
+    background-color: red;
+    height: 3vh;
+    width: 3vh;
+    float: left;
+}
+
+.Valores .Importante{
+    background-color: green;
+    height: 3vh;
+    width: 3vh;
+    float: left;
+}
+
+.Valores .NoImportante{
+    background-color: cyan;
+    height: 3vh;
+    width: 3vh;
+    float: left;
+}
+
+/*Contador de intentos*/
+.Contador {
+    position: relative;
+    top: 3vh;
+    left: 12vh;
+    height: 10vh;
+    width: 20vh;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding-left: 2vh;
+}
 
 /*Boton*/
 .Boton {

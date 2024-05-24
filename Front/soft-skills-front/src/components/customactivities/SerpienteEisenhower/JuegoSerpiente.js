@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import Tablero from './Tablero'
 import Marcador from './Marcador';
 import Reloj from "./Reloj"
+import Valores from "./Valores";
+import Intentos from "./Intentos";
 
 export default function JuegoSerpiente(){
 
     // Valores predefinidos
+
+    // Urgente UrgenteImportante Importante NoImportante
+    // Abreviaciones U, UI, I, NI
+    const valoresDefault = [50,30,15,10];
+
     const niveles = {
-        1:{tamano: {ancho: 30, alto: 20}, tiempo: 5, descanso: 5},
-        2:{tamano: {ancho: 40, alto: 30}, tiempo: 8, descanso: 5},
-        3:{tamano: {ancho: 50, alto: 40}, tiempo: 11, descanso: 5},
-        4:{tamano: {ancho: 50, alto: 40}, tiempo: 15, descanso: 0}
-    }
+        1:{tamano: {ancho: 30, alto: 20}, tiempo: 5, matriz: null, descanso: 5},
+        2:{tamano: {ancho: 40, alto: 30}, tiempo: 8, matriz: null, descanso: 5},
+        3:{tamano: {ancho: 50, alto: 40}, tiempo: 11, matriz: null, descanso: 5},
+        4:{tamano: {ancho: 50, alto: 40}, tiempo: 15, matriz: null, descanso: 0}
+    };
 
     const direcciones = {
         neutral:    [0,0],
@@ -19,21 +26,26 @@ export default function JuegoSerpiente(){
         abajo:      [0, 1],
         derecha:    [1,0],
         izquierda:  [-1,0],
-    }
+    };
+
+    const serpienteDefault = {
+        direccion: direcciones.neutral,
+        cabeza: [14,10],
+        cola: [],
+        largo: 2
+    };
 
 
     // Estados
 
-    const [ mapa, setMapa ] = useState(niveles[1])
-    const [ serpiente, setSerpiente ] = useState({
-        direccion: direcciones.neutral,
-        cabeza: [10,10],
-        cola: [],
-        largo: 2
-    })
-    const [ puntaje, setPuntaje] = useState(0)
-    const [ interruptor, setInterruptor] = useState(false)
-    const [ frutos, setFrutos ] = useState([])
+    const [ mapa, setMapa ] = useState(niveles[1]);
+    const [ serpiente, setSerpiente ] = useState(serpienteDefault);
+    const [ puntaje, setPuntaje] = useState(0);
+    const [ interruptor, setInterruptor] = useState(false);
+    // Los valores son los puntos que dan los fruto.
+    const [ valores, setValores] = useState(valoresDefault);
+    const [ frutos, setFrutos ] = useState([]);
+    const [ intentos, setIntentos ] = useState(0);
 
 
 
@@ -50,20 +62,104 @@ export default function JuegoSerpiente(){
             repetido = frutos.reduce((final, elem)=>{
                 if(final === true){
                     return final
-                }else if(elem.posicion.x === x && elem.posicion.y === y){
+                }else if((elem.posicion.x === x && elem.posicion.y === y) || elem.tipo === num){
                     return true
                 }else{
                     return false
                 }
-            })
+            },false)
         }
 
-        let valor = [50,30,20,10];
-        let fruto = {tipo: num, valor: valor[num], posicion: {x: x, y: y}} ;
+        let fruto = {tipo: num, valor: valores[num], posicion: {x: x, y: y}} ;
+
+        let nuevaMatriz = mapa.matriz;
 
         if(!repetido){
+            nuevaMatriz[x][y] = fruto;
+            setMapa({...mapa, matriz: nuevaMatriz})
             setFrutos([...frutos, fruto])
         }
+    }
+
+    const eliminarFruto = (tipo) => {
+        let nuevosFrutos = frutos;
+
+        let index = nuevosFrutos.reduce((final, elem, idx)=>{
+            if(final !== null){
+                return final;
+            }else if(elem.tipo === tipo){
+                return idx;
+            }else{
+                return null
+            }
+        },null)
+
+        nuevosFrutos.splice(index,1)
+        setFrutos(nuevosFrutos)
+    }
+
+    const colision = (x, y) => {
+        const dentroAncho = x > -1 && x < mapa.tamano.ancho;
+        const dentroAlto = y > -1 && y < mapa.tamano.alto;
+        const dentro = dentroAncho && dentroAlto;
+
+        let tipo = null;
+        let nuevaMatriz = mapa.matriz;
+        let elemento = null;
+        if(dentro){
+            elemento = nuevaMatriz[x][y];
+        }
+        
+        if(elemento !== null){
+            tipo = elemento.tipo;
+            setPuntaje(puntaje + elemento.valor)
+            nuevaMatriz[x][y] = null;
+            setMapa({...mapa, matriz: nuevaMatriz})
+        }
+
+        if(tipo !== null){
+            eliminarFruto(tipo)
+            racha(tipo);
+        }
+    }
+
+    const racha = (tipo) => {
+        let nuevosValores = valores;
+        // si atrapa un U reinicia todos los valores.
+        if(tipo === 0){
+            nuevosValores = valoresDefault;
+
+        // si atrapa un UI suma 30 si es menor o igual a 89
+        // su limite de crecimiento aqui es de 119.
+        }else if(tipo === 1 && valores[1] < 90){
+            nuevosValores[tipo] = nuevosValores[tipo] + 30;
+
+        // si atrapa un I y los UI valen menos, siempre y cuando los I sean menores a 90
+        // los I suben en 10 y los UI suben en 20.
+        }else if(tipo === 2 && valores[1] < valores[2] && valores[2] < 90){
+            nuevosValores[1] = nuevosValores[1] + 20;
+            nuevosValores[tipo] = nuevosValores[tipo] + 10;
+        
+        // si atrapa un I y su valor es menor a 100 suma de a 10.
+        }else if(tipo === 2 && valores[2] < 100){
+            nuevosValores[tipo] = nuevosValores[tipo] + 10;
+
+        // si atrapa un NI, reinicia los I y le resta 5 a los UI.
+        }else if(tipo === 3 && valores[2] > valoresDefault[2]){
+            nuevosValores[1] = nuevosValores[1] - 5
+            nuevosValores[2] = valoresDefault[2]
+        }
+        // para hacer tendador los U, en caso de valer menos que las urgentes importantes
+        if(nuevosValores[0] < nuevosValores[1]){
+            nuevosValores[0] = nuevosValores[1] + 5;
+        }
+        setValores(nuevosValores);
+    }
+
+    const nuevoIntento = ()=>{
+        setIntentos(intentos + 1);
+        setSerpiente(serpienteDefault);
+        setValores(valoresDefault)
     }
 
     const moverse = () =>{
@@ -86,13 +182,16 @@ export default function JuegoSerpiente(){
                     cabeza: nuevaCabeza,
                     cola:   nuevaCola,
                 })
+                colision(nuevaCabeza[0], nuevaCabeza[1]);
             }
+        }else{
+            nuevoIntento();
         }
     }
 
 
 
-    const cambiaDireccion = (e) => {
+    const cambiarDireccion = (e) => {
         const tecla = e.key;
 
         setInterruptor(true);
@@ -119,37 +218,44 @@ export default function JuegoSerpiente(){
         }
     }
 
-
-    // Sin proposito / temporal
-    function init (){
-        setMapa(niveles[1])
-        generarFruto();
-        setPuntaje(puntaje + 1);
+    const crearMatriz = () => {
+        let nuevaMatriz = [];
+        for( var x = 0; x < mapa.tamano.ancho; x++){
+            nuevaMatriz.push([]);
+            for( var y = 0; y < mapa.tamano.alto; y++){
+                nuevaMatriz[x].push(null);
+            }
+        }
+        setMapa({...mapa, matriz: nuevaMatriz})
     }
 
-    if(false){
-        init()
-    }
 
     useEffect(()=>{
 
-        document.addEventListener('keydown', cambiaDireccion, true);
-        document.removeEventListener('keydown', cambiaDireccion, false)
-
+        window.addEventListener('keydown', cambiarDireccion, true);
+        
         let id = setInterval(()=>{
             moverse()
-            if(frutos.length <= 4){
+            if(mapa.matriz === null){
+                crearMatriz()
+            }
+            if(frutos.length < 3 && mapa.matriz !== null){
                 generarFruto()
             }
-        },800)
+        },600)
 
-        return () => clearInterval(id)
+        return () => {
+            clearInterval(id)
+            window.removeEventListener('keydown', cambiarDireccion, true);
+        }
     })
 
     return(
         <div className="Juego-Serpiente">
             <Marcador puntaje={puntaje}/>
             <Reloj tiempo={5} interruptor={interruptor}/>
+            <Valores valores={valores}/>
+            <Intentos intentos={intentos}/>
             <Tablero serpiente={serpiente} frutos={frutos} mapa={mapa}/>
         </div>
     )
