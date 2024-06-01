@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Tablero from './Tablero'
-import Marcador from './Marcador';
-import Reloj from "./Reloj"
-import Valores from "./Valores";
-import Intentos from "./Intentos";
+import Tablero from './comp/Tablero'
+import Marcador from './comp/Marcador';
+import Reloj from "./comp/Reloj"
+import Valores from "./comp/Valores";
+import Intentos from "./comp/Intentos";
+import Musica from "./comp/Musica";
 
 export default function JuegoSerpiente(){
 
@@ -249,7 +250,7 @@ export default function JuegoSerpiente(){
             if(frutos.length < 3 && mapa.matriz !== null){
                 generarFruto()
             }
-        },600)
+        },200)
 
         return () => {
             clearInterval(id)
@@ -264,6 +265,7 @@ export default function JuegoSerpiente(){
             <Valores valores={valores}/>
             <Intentos intentos={intentos}/>
             <Tablero serpiente={serpiente} frutos={frutos} mapa={mapa}/>
+            <Musica interruptor={interruptor}/>
         </div>
     )
 

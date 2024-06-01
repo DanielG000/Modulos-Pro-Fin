@@ -28,25 +28,6 @@
     border-radius: 16px;
 }
 
-#Tablero {
-    position: relative;
-    top: 6vh;
-    left: 3vh;
-    height: 60vh;
-    width: 60vh;
-    background-color: #fff;
-    border: 1px solid #000;
-    border-radius: 8px;
-}
-
-#Tablero canvas{
-    position: relative;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #fff;
-}
 
 /*Puntaje*/
 .Marcador {
@@ -155,3 +136,30 @@
     border-radius: 8px;
 }
 
+/*Mapa*/
+#Tablero {
+    position: relative;
+    top: 6vh;
+    left: 3vh;
+    height: 60vh;
+    width: 60vh;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    float: left;
+}
+
+#Tablero canvas{
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+}
+
+.Musica {
+    position: relative;
+    top: 6vh;
+    left: 6vh;
+}
