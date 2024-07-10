@@ -158,8 +158,26 @@
     background-color: #fff;
 }
 
-.Musica {
+.BotonTrampa {
     position: relative;
     top: 6vh;
     left: 6vh;
+    float: left;
+}
+
+.BotonNotificaciones {
+    position: relative;
+    top: 6vh;
+    left: 9vh;
+    float: left;
+}
+
+.Musica {
+    position: relative;
+    top: 6vh;
+    left: 12vh;
+    height: 50vh;
+    width: 50vh;
+    float: left;
+    border: 1px solid gray;
 }

@@ -5,6 +5,8 @@ import Reloj from "./comp/Reloj"
 import Valores from "./comp/Valores";
 import Intentos from "./comp/Intentos";
 import Musica from "./comp/Musica";
+import BotonTrampa from "./comp/BotonTrampa";
+import Notificaciones from "./comp/Notificaciones";
 
 export default function JuegoSerpiente(){
 
@@ -265,6 +267,8 @@ export default function JuegoSerpiente(){
             <Valores valores={valores}/>
             <Intentos intentos={intentos}/>
             <Tablero serpiente={serpiente} frutos={frutos} mapa={mapa}/>
+            <BotonTrampa puntaje={puntaje} setPuntaje={setPuntaje}/>
+            <Notificaciones interruptor={interruptor}/>
             <Musica interruptor={interruptor}/>
         </div>
     )

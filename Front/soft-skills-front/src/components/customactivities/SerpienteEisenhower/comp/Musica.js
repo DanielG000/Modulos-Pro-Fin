@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import useSound from 'use-sound';
 
 import AlarmaDeCarro from '../../../../resources/sounds/Molestos/AlarmaDeCarro.mp3';
 
 export default function Musica(props){
+
+    const cajaRef = useRef();
+    const botonRef = useRef();
 
     const { interruptor } = props;
 
@@ -25,10 +28,21 @@ export default function Musica(props){
     }
 
     useEffect(()=>{
-        const tiempo = Math.floor(Math.random() * 20) * 900;
+        const tiempo = Math.floor(Math.random() * 20) * 1100;
         const id = setInterval(()=>{
             if(emerger){
+                // activa nuevamente el boton
                 setActivo(true);
+                
+                // revisa cuando ya enten montados en el DOM y la referencia deje de ser null o undefined
+                const cajaLista = typeof cajaRef.current !== "undefined" && cajaRef.current !== null;
+                const botonListo = typeof botonRef.current !== "undefined" && botonRef.current !== null;
+                const montado = cajaLista && botonListo;
+                if(montado){
+                    botonRef.current.style.position = "relative"
+                    botonRef.current.style.top = Math.floor( Math.random() * 80) + "%";
+                    botonRef.current.style.left = Math.floor( Math.random() * 80) + "%";
+                }
             }
             if(activo){
                 play()
@@ -41,8 +55,8 @@ export default function Musica(props){
     })
 
     return (
-        <div className="Musica">
-        <button onClick={cambiar}>Musica: {activo ? "On" : "Off"}</button>
+        <div ref={cajaRef} className="Musica">
+        <button ref={botonRef} onClick={cambiar}>Musica: {activo ? "On" : "Off"}</button>
         </div>
     )
 }
