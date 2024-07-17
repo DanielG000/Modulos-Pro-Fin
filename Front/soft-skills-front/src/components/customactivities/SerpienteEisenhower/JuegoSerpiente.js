@@ -204,7 +204,9 @@ export default function JuegoSerpiente(){
     const cambiarDireccion = (e) => {
         const tecla = e.key;
 
-        setInterruptor(true);
+        if(direcciones.neutral[0] === serpiente.direccion[0] && direcciones.neutral[1] === serpiente.direccion[1]){
+            setInterruptor(true)
+        }
 
         if((tecla === "ArrowUp" || tecla === "W" || tecla === "w") && (serpiente.direccion[1] !== 1)){
             setSerpiente({...serpiente,
@@ -243,6 +245,7 @@ export default function JuegoSerpiente(){
     useEffect(()=>{
 
         window.addEventListener('keydown', cambiarDireccion, true);
+        document.addEventListener('visibilitychange', () => {if(document.visibilityState === "hidden"){nuevoIntento()}}, true);
         
         let id = setInterval(()=>{
             moverse()
@@ -257,6 +260,7 @@ export default function JuegoSerpiente(){
         return () => {
             clearInterval(id)
             window.removeEventListener('keydown', cambiarDireccion, true);
+            document.removeEventListener('visibilitychange', () => {if(document.visibilityState === "hidden"){nuevoIntento()}}, true);
         }
     })
 

@@ -19,13 +19,16 @@ export default function Reloj(props){
                 }else if(segundos === 0){
 
                 }
+            }else{
+                setMinutos(tiempo);
+                setSegundos(0);
             }
         },1000)
     
         return () => {
             clearInterval(inicio)
         };
-    },[segundos,minutos,interruptor])
+    },[segundos,minutos,interruptor,tiempo])
 
     return(
         <div className="Reloj">
