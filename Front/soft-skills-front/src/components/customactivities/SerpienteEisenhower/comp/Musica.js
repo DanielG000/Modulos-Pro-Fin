@@ -28,7 +28,7 @@ export default function Musica(props){
     }
 
     useEffect(()=>{
-        const tiempo = Math.floor(Math.random() * 20) * 1100;
+        const tiempo = Math.floor(Math.random() * 20) * 15000;
         const id = setInterval(()=>{
             if(emerger){
                 // activa nuevamente el boton

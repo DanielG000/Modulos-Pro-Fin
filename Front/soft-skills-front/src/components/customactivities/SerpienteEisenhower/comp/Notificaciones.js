@@ -21,7 +21,7 @@ export default function Notificaciones(props){
 
     useEffect(()=>{
         const index = Math.floor(Math.random() * mensajes.length)
-        const tiempo = Math.floor(Math.random() * 20) * 15000;
+        const tiempo = Math.floor(Math.random() * 20) * 40000;
         const id = setInterval(()=>{
             if(!activo){
                 setActivo(true);
