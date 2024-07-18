@@ -2,26 +2,21 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Navigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -38,57 +33,15 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Iniciar sesión
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
+          <Box component="form" noValidate sx={{ mt: 1 }}>
+            <Button
+              onClick={() => loginWithRedirect()}
               fullWidth
-              id="email"
-              label="Correo electrónico"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Contraseña"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Link to="/dashboard" variant="body2">
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Iniciar sesión
-              </Button>
-            </Link>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Restablecer contraseña
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link to="/signup" variant="body2">
-                  {"Registrarse"}
-                </Link>
-              </Grid>
-            </Grid>
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Iniciar sesión
+            </Button>
           </Box>
         </Box>
       </Container>

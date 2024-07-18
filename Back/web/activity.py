@@ -28,7 +28,7 @@ def get_an_activity(id: int, db: Session = Depends(get_session)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=exc.msg)
 
 @router.get("/course/{id}", summary="consulta todas las actividades de un curso", response_model=list[ActivityRead])
-def get_all_activities_by_course(id: int, db: Session = Depends(get_session)):
+def get_all_activities_by_course(id: str, db: Session = Depends(get_session)):
     try:
         activity = read_activity_by_course_id(id, db)
         return activity

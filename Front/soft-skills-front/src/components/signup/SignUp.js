@@ -51,7 +51,7 @@ export default function SignUp() {
 
     if (!validate()) return;
 
-    const response = await fetch("http://127.0.0.1:8000/users", {
+    const response = await fetch("https://tg2-wfw8.onrender.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

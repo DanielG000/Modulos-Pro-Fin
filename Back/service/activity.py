@@ -12,7 +12,7 @@ def read_activities(db: Session = Depends(get_session)) -> Sequence[Activity]:
     activities = db.exec(select(Activity)).all()
     return activities
 
-def read_activity_by_course_id(course_id: int, db: Session = Depends(get_session)) -> Sequence[Activity]:
+def read_activity_by_course_id(course_id: str, db: Session = Depends(get_session)) -> Sequence[Activity]:
     activities = db.exec(select(Activity).where(Activity.course_id == course_id)).all()
     return activities
 

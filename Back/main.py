@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from config import settings
-from database import create_db_and_tables
 from utils.logger import logger_config
 from web import api as api_routes
 
@@ -13,7 +12,6 @@ logger = logger_config(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    create_db_and_tables()
 
     logger.info("startup: triggered")
 
@@ -30,7 +28,7 @@ app = FastAPI(
 )
 
 origins = [
-    "http://localhost:3000",  # Permite solicitudes CORS desde este origen
+    "*",  # Permite solicitudes CORS desde este origen
 ]
 
 app.add_middleware(
@@ -46,4 +44,4 @@ app.include_router(api_routes)
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=10000, reload=True)

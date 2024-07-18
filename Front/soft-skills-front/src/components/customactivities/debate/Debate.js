@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import ResponsiveAppBar from "../../responsiveappbar/ResponsiveAppBar";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
+import DOMPurify from "dompurify";
 
-export default function MentalMap() {
+export default function Debate() {
   const [activity, setActivity] = useState(null);
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/activity/6`)
+      .get(`https://tg2-wfw8.onrender.com/activity/7`)
       .then((response) => {
         setActivity(response.data);
       })
@@ -21,6 +22,8 @@ export default function MentalMap() {
     return <div>Cargando...</div>;
   }
 
+  const activityExample = DOMPurify.sanitize(activity.example);
+  const activityEvaluation = DOMPurify.sanitize(activity.evaluation);
   return (
     <>
       <ResponsiveAppBar />
@@ -46,18 +49,12 @@ export default function MentalMap() {
             {activity.metodology}
             <h3>Recursos</h3>
             {activity.resources}
-            <h3>Introducción</h3>
-            {activity.introduction}
-            <br />
-            <br />
+            <h3>Evaluación</h3>
+            <div dangerouslySetInnerHTML={{ __html: activityEvaluation }} />
             <br />
             <div>
-              <iframe
-                style={{ width: "100%", height: "700px" }}
-                src="https://www.willyoupressthebutton.com/"
-                scrolling="no"
-                title="Mental Map Diagram"
-              ></iframe>
+              <h3>Ejemplo</h3>
+              <div dangerouslySetInnerHTML={{ __html: activityExample }} />
             </div>
             <br />
             <br />

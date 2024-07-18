@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
-import Textarea from "@mui/joy/Textarea";
-import Button from "@mui/joy/Button";
 import { MdPerson } from "react-icons/md";
+import { TextField, Button } from "@mui/material";
 
 const Comments = () => {
   const [comment, setComment] = useState("");
@@ -29,7 +27,7 @@ const Comments = () => {
       </p>
       <form className="grid gap-2" onSubmit={handleCommentSubmit}>
         <div>
-          <Textarea
+          <TextField
             className="w-full min-h-[100px] text-sm"
             id="comment"
             placeholder="Escribe un comentario..."
@@ -39,7 +37,7 @@ const Comments = () => {
           />
         </div>
         <br></br>
-        <Button type="submit" style={{ width: "100%" }}>
+        <Button variant="contained" type="submit" style={{ width: "100%" }}>
           Publicar
         </Button>
       </form>

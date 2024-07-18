@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from web import comment, course, user, activity
+from web import comment, course, user, activity, answer
 
 api = APIRouter()
 
@@ -27,4 +27,10 @@ api.include_router(
     activity.router,
     prefix="/activity",
     tags=["Actividades"],
+)
+
+api.include_router(
+    answer.router,
+    prefix="/answer",
+    tags=["Respuestas"],
 )
