@@ -9,6 +9,7 @@ import MentalMap from "./components/customactivities/mentalmap/MentalMap";
 import Debate from "./components/customactivities/debate/Debate";
 import DecitionMaking from "./components/customactivities/decisionMaking/DecisionMaking";
 import JigSaw from "./components/customactivities/jigsaw/JigSaw";
+import SerpienteEisenhower from "./components/customactivities/SerpienteEisenhower/SerpienteEisenhower";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/activity/debate" element={<Debate />} />
         <Route path="/activity/jigsaw" element={<JigSaw />} />
         <Route path="/activity/decisionmaking" element={<DecitionMaking />} />
+        <Route path="/activity/SerpienteEisenhower" element={<SerpienteEisenhower />} />
       </Routes>
     </Router>
   );
