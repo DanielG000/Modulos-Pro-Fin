@@ -27,7 +27,7 @@ export default function Activity() {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get(`https://tg2-wfw8.onrender.com/activity/${activityId}`)
+        .get(`${process.env.API_HOST}/activity/${activityId}`)
         .then((response) => {
           setActivity(response.data);
         })

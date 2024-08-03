@@ -21,6 +21,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses/:id" element={<Course />} />
         <Route path="/activity/:id" element={<Activity />} />
+        
         <Route path="/activity/mentalmap" element={<MentalMap />} />
         <Route path="/activity/debate" element={<Debate />} />
         <Route path="/activity/jigsaw" element={<JigSaw />} />

@@ -25,7 +25,7 @@ export default function Album() {
   useEffect(() => {
     // Hacer una solicitud a tu API para obtener la lista de cursos
     axios
-      .get("https://tg2-wfw8.onrender.com/courses")
+      .get(`${process.env.API_HOST}/courses`)
       .then((response) => {
         setCourses(response.data); // Actualiza el estado con los datos de los cursos
       })

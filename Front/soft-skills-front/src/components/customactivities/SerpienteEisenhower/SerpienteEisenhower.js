@@ -18,7 +18,7 @@ export default function SerpienteEisenhower(){
 
     const getActivity = async () => {
         await axios
-        .get(`http://127.0.0.1:8000/activity/9`)
+        .get( `${process.env.API_HOST}/activity/9` )
         .then((response) => {
             setActivity(response.data);
         })
