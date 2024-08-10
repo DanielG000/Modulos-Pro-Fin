@@ -1,3 +1,13 @@
+# Comentarios de desarrollo
+
+
+## react-push-notification
+Debido a que depende de una version desactualizada de react, genera un conflicto. Para instalar todo hay que agregar "--force" o "--legacy-peer-deps" para instalar la version 1.5.4. que es la mas reciente a la fecha de desarrollar estos modulos.
+
+Yo use el "--force" para ser exacto.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
