@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const QuestionRating = ({ questionId, courseId, onRatingSubmit }) => {
   const [rating, setRating] = useState(0); // Estado para la calificación

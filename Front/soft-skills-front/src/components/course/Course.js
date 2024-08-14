@@ -16,7 +16,7 @@ export default function Course() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.API_HOST}/courses/${courseId}`)
+      .get(`${process.env.REACT_APP_API_HOST}/courses/${courseId}`)
       .then((response) => {
         setCourse(response.data);
       })
@@ -25,7 +25,7 @@ export default function Course() {
       });
 
     axios
-      .get(`${process.env.API_HOST}/activity/course/${courseId}`)
+      .get(`${process.env.REACT_APP_API_HOST}/activity/course/${courseId}`)
       .then((response) => {
         setActivities(response.data);
       })

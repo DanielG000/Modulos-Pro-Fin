@@ -25,7 +25,7 @@ export default function Album() {
   useEffect(() => {
     // Hacer una solicitud a tu API para obtener la lista de cursos
     axios
-      .get(`${process.env.API_HOST}/courses`)
+      .get(`${process.env.REACT_APP_API_HOST}/courses`)
       .then((response) => {
         setCourses(response.data); // Actualiza el estado con los datos de los cursos
       })

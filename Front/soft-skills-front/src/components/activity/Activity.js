@@ -27,7 +27,7 @@ export default function Activity() {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get(`${process.env.API_HOST}/activity/${activityId}`)
+        .get(`${process.env.REACT_APP_API_HOST}/activity/${activityId}`)
         .then((response) => {
           setActivity(response.data);
         })
@@ -71,7 +71,7 @@ export default function Activity() {
           answer_text: answerText,
         };
         axios
-          .post("https://tg2-wfw8.onrender.com/answer", answerData)
+          .post(`${process.env.REACT_APP_API_HOST}/answer`, answerData)
           .then((response) => {
             console.log(`Respuesta ${question} enviada:`, response.data);
             guardadasConExito = guardadasConExito && true;

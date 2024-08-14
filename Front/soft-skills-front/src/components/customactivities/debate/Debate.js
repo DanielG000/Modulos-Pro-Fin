@@ -9,7 +9,7 @@ export default function Debate() {
 
   useEffect(() => {
     axios
-      .get(`https://tg2-wfw8.onrender.com/activity/7`)
+      .get(`${process.env.REACT_APP_API_HOST}/activity/7`)
       .then((response) => {
         setActivity(response.data);
       })

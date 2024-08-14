@@ -51,7 +51,7 @@ export default function SignUp() {
 
     if (!validate()) return;
 
-    const response = await fetch("https://tg2-wfw8.onrender.com/users", {
+    const response = await fetch(`${process.env.REACT_APP_API_HOST}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

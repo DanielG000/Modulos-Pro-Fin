@@ -8,7 +8,7 @@ export default function MentalMap() {
 
   useEffect(() => {
     axios
-      .get(`https://tg2-wfw8.onrender.com/activity/6`)
+      .get(`${process.env.REACT_APP_API_HOST}/activity/6`)
       .then((response) => {
         setActivity(response.data);
       })
