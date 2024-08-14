@@ -12,8 +12,8 @@ const onRedirectCallback = (appState) => {
 
 root.render(
   <Auth0Provider
-    domain={ process.env.AUTH0_DOMAIN }
-    clientId={ process.env.AUTH0_CLIENT_ID }
+    domain="dev-inb3c7dplw182pfk.us.auth0.com"
+    clientId="M626XrfrpmWET3cgBfDBIxUPs2sLIjR4"
     authorizationParams={{ redirect_uri: window.location.origin }}
     onRedirectCallback={onRedirectCallback}
   >
