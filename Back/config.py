@@ -15,7 +15,7 @@ db_uri = os.getenv('DB_URI')
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Tesis backend"
-    DESCRIPTION: str = "A FastAPI + SQLModel production-ready API"
+    DESCRIPTION: str = "A FastAPI + Postgres production-ready API"
     VERSION: str = "0.1"
     DATABASE_URI: str = db_uri
 

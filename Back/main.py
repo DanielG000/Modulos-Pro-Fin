@@ -7,6 +7,11 @@ from config import settings
 from utils.logger import logger_config
 from web import api as api_routes
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 logger = logger_config(__name__)
 
 
@@ -43,5 +48,6 @@ app.include_router(api_routes)
 
 if __name__ == "__main__":
     import uvicorn
-
-    uvicorn.run("main:app", host="0.0.0.0", port=10000, reload=True)
+    
+    puerto: int = int(os.getenv('BACK_PORT'))
+    uvicorn.run("main:app", host="0.0.0.0", port=puerto, reload=True)
