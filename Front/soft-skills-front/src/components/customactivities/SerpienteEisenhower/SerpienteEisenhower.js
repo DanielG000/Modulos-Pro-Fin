@@ -2,6 +2,7 @@ import React, { useEffect, useState} from "react";
 import ResponsiveAppBar from "../../responsiveappbar/ResponsiveAppBar";
 import axios from "axios";
 
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './SerpienteEisenhower.css'
 import Presentacion from './Presentacion'
 import Espera from '../../wait/Espera'

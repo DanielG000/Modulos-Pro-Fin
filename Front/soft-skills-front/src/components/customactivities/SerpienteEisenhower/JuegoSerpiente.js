@@ -7,6 +7,7 @@ import Intentos from "./comp/Intentos";
 import Musica from "./comp/Musica";
 import BotonTrampa from "./comp/BotonTrampa";
 import Notificaciones from "./comp/Notificaciones";
+import Flotante from "./comp/Flotante";
 
 export default function JuegoSerpiente(){
 
@@ -274,6 +275,7 @@ export default function JuegoSerpiente(){
             <BotonTrampa puntaje={puntaje} setPuntaje={setPuntaje}/>
             <Notificaciones interruptor={interruptor}/>
             <Musica interruptor={interruptor}/>
+            <Flotante interruptor={interruptor}/>
         </div>
     )
 
