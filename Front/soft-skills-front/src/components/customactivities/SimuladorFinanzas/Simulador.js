@@ -6,18 +6,28 @@ import PanelInferior from "./comp/PanelInferior";
 export default function Simulador(props){
 
     const [ numMes, setNunMes ] = useState(0);
+    const [ deshabilitar, setDeshabilitado ] = useState(false)
     const [ salario, setSalario ] = useState(0);
-    const [ saldo, setSaldo ] = useState(0)
+    const [ saldo, setSaldo ] = useState(0);
 
-    const mensualidad = useCallback((saldo, salario)=>{
+    const balance = useCallback((saldo, salario)=>{
         setSaldo(saldo + salario);
     },[])
 
+    //Final de la simulacion
+    const simulacionFinalizada = useCallback(()=>{
+        if(numMes + 1 === 35){
+            setDeshabilitado(!deshabilitar);
+        }
+    },[numMes, deshabilitar])
+
     //funcion paso a paso
     const siguiente = useCallback(()=>{
+        simulacionFinalizada()
         setNunMes( numMes + 1 );
-        mensualidad(saldo, salario);
-    },[numMes, mensualidad, saldo, salario]);
+        balance(saldo, salario);
+    },[numMes, saldo, salario, simulacionFinalizada, balance]);
+
 
     useEffect(()=>{
         setSalario(2000000);
@@ -29,7 +39,7 @@ export default function Simulador(props){
             <Fecha numMes={numMes}/>
 
             <PanelInferior salario={salario} saldo={saldo}/>
-            <button className="Boton-Siguiente" onClick={siguiente}>Siguiente</button>
+            <button className="Boton-Siguiente" onClick={siguiente} disabled={deshabilitar}>Siguiente</button>
         </div>
     )
 }
