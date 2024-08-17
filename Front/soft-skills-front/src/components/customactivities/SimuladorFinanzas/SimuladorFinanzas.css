@@ -1,0 +1,62 @@
+* {
+    overflow: hidden;
+}
+
+.Simulador-Finanzas {
+    height: 80vh;
+    width: 94vw;
+    margin-top: 1%;
+    margin-bottom:  1%;
+    margin-left:  3%;
+    margin-right:  3%;
+    border: 1px solid #000;
+    border-radius: 16px;
+}
+
+.Fecha {
+    position: relative;
+    top: 5%;
+    left: 2%;
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+}
+
+.Fecha .Fecha-Contador{
+    font-size: small;
+    margin-bottom: 2px;
+    width:fit-content;
+}
+
+.Fecha h4{
+    margin-bottom: 0%;
+}
+
+.Panel-Inferior {
+    position: relative;
+    top: 60%;
+    left: 2%;
+    height: 25%;
+    width: 84%;
+    border: 1px solid #000;
+    border-radius: 16px;
+    float: left;
+}
+
+.Panel-Inferior p{
+    border: 1px solid #000;
+    position: relative;
+    top: 25%;
+    left: 4%;
+    width: fit-content;
+}
+
+
+.Boton-Siguiente {
+    position: relative;
+    top: 60%;
+    left: 4%;
+    height: 25%;
+    width: 10%;
+    border-radius: 16px;
+}
