@@ -2,17 +2,33 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import Fecha from "./comp/Fecha";
 import PanelInferior from "./comp/PanelInferior";
+import PanelCuentas from "./comp/PanelCuentas";
 
 export default function Simulador(props){
 
     const [ numMes, setNunMes ] = useState(0);
     const [ deshabilitar, setDeshabilitado ] = useState(false)
     const [ salario, setSalario ] = useState(0);
-    const [ saldo, setSaldo ] = useState(0);
+    const [ saldo, setSaldo ] = useState(2000000);
+    const [ listaCuentas, setListaCuentas ] = useState([]);
 
     const balance = useCallback((saldo, salario)=>{
-        setSaldo(saldo + salario);
-    },[])
+        let total = 0;
+        let cuentasActualizadas = []
+        listaCuentas.forEach((cuenta)=>{
+            if(cuenta.nombre === 'Principal'){
+                cuenta.saldo = cuenta.saldo + salario;
+            }
+            cuentasActualizadas.push(cuenta);
+        })
+        setListaCuentas(cuentasActualizadas);
+        cuentasActualizadas.forEach((cuenta)=>{
+            if(cuenta.tipo !== "Credito"){
+                total = total + cuenta.saldo;
+            }
+        })
+        setSaldo(total);
+    },[listaCuentas])
 
     //Final de la simulacion
     const simulacionFinalizada = useCallback(()=>{
@@ -30,14 +46,17 @@ export default function Simulador(props){
 
 
     useEffect(()=>{
+        setListaCuentas([
+            {nombre: 'Principal', tipo: 'debito', saldo: 2000000, interes: 0, cuota: 0},
+        ])
         setSalario(2000000);
-        setSaldo(2000000);
     },[])
 
     return(
         <div className="Simulador-Finanzas">
             <Fecha numMes={numMes}/>
-
+            
+            <PanelCuentas listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
             <PanelInferior salario={salario} saldo={saldo}/>
             <button className="Boton-Siguiente" onClick={siguiente} disabled={deshabilitar}>Siguiente</button>
         </div>
