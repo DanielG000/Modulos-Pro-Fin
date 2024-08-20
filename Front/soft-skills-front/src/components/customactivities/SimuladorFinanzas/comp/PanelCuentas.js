@@ -15,7 +15,7 @@ export default function PanelCuentas(props){
 
                 {listaCuentas.map((cuenta)=>{
                     return(
-                        <Cuenta datos={cuenta}/>
+                        <Cuenta datos={cuenta} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
                     )
                 })}
             </div>
