@@ -2,6 +2,7 @@
     overflow: hidden;
 }
 
+/*Contenedor principal*/
 .Simulador-Finanzas {
     height: 80vh;
     width: 94vw;
@@ -13,6 +14,8 @@
     border-radius: 16px;
 }
 
+/*-----------------------------*/
+/*Fecha de la Simulación*/
 .Fecha {
     position: relative;
     top: 5%;
@@ -20,6 +23,7 @@
     width: fit-content;
     height: fit-content;
     align-items: center;
+    float: left;
 }
 
 .Fecha .Fecha-Contador{
@@ -32,10 +36,44 @@
     margin-bottom: 0%;
 }
 
+/*-----------------------------*/
+/*Panel Superior - de Productos Financieros */
+.Panel-Superior {
+    position: relative;
+    top: 5%;
+    left: 4%;
+    width: 83%;
+    height: 30%;
+    border: 1px solid #000;
+    border-radius: 16px;
+}
 
+.Producto-Financiero {
+    border-radius: 16px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+}
+
+.Producto-Financiero *{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+}
+
+.PF-Tipo {
+    color: dodgerblue;
+}
+
+
+
+
+/*-----------------------------*/
+/*Panel de Cuentas*/
 .Panel-Cuentas {
     position: relative;
-    top: 40%;
+    top: 20%;
     left: 2%;
     height: 19%;
     width: 84%;
@@ -125,7 +163,7 @@
 
 .Panel-Inferior {
     position: relative;
-    top: 41%;
+    top: 21%;
     left: 2%;
     height: 25%;
     width: 84%;
@@ -145,7 +183,7 @@
 
 .Boton-Siguiente {
     position: relative;
-    top: 60%;
+    top: 40%;
     left: 4%;
     height: 25%;
     width: 10%;
