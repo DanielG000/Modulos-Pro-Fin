@@ -68,7 +68,7 @@ export default function Cuenta(props){
                     Información de Cuenta
                 </ModalHeader>
                 <ModalBody>
-                    <p className="Nombre">N ombre: {datos.nombre}</p>
+                    <p className="Nombre">Nombre: {datos.nombre}</p>
                     <p className="Tipo">Tipo: {datos.tipo}</p>
                     <p className="Saldo">Saldo: {datos.saldo}</p>
                     <p className="Interes">Interes: {datos.interes}</p>
@@ -102,7 +102,7 @@ export default function Cuenta(props){
                 </ModalFooter>
             </Modal>
             <Modal isOpen={monto}>
-            <ModalHeader>
+                <ModalHeader>
                     Cantidad
                 </ModalHeader>
                 <ModalBody>

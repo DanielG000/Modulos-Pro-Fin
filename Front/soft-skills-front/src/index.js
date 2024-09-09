@@ -13,7 +13,7 @@ const onRedirectCallback = (appState) => {
 root.render(
   <Auth0Provider
     domain="dev-inb3c7dplw182pfk.us.auth0.com"
-    clientId="M626XrfrpmWET3cgBfDBIxUPs2sLIjR4"
+    clientId="ajRUvB5Q66acJvkuFIDSF7xrkLjFt1fF"
     authorizationParams={{ redirect_uri: window.location.origin }}
     onRedirectCallback={onRedirectCallback}
   >

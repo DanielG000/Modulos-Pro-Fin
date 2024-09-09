@@ -9,7 +9,7 @@ import ProductoFinanciero from "./ProductoFinanciero";
 
 export default function PanelSuperior(props){
 
-    const { numMes, productosFinancieros, setProductosFinancieros } = props;
+    const { numMes, productosFinancieros, setProductosFinancieros, listaCuentas, setListaCuentas } = props;
 
 
     const settings = useMemo(()=>{
@@ -29,10 +29,10 @@ export default function PanelSuperior(props){
         let tiposPago = ["Mensual", "Final"];
 
         let tipoPago = tiposPago[(Math.floor(Math.random() * 2))]
-        let interesEA = ((Math.floor(Math.random() * 6) + 8)/100);
-        let interesMensual = Math.pow((1 + interesEA),(1/12)) -1;
-        let duracion = (Math.floor(Math.random() * 34) + 2);
-        let capitalMinimo = (Math.floor(Math.random() * 21) + 1) * 500000;
+        let interesEA = parseFloat((Math.floor(Math.random() * 6) + 8)/100).toFixed(2);
+        let interesMensual = (Math.pow((1 + interesEA),(1/12)) -1).toFixed(2);
+        let duracion = (Math.floor(Math.random() * 24) + 2);
+        let capitalMinimo = (Math.floor(Math.random() * 20) + 1) * 50000;
 
         return ({
             id: id,
@@ -62,8 +62,9 @@ export default function PanelSuperior(props){
             permanencia = (Math.floor(Math.random() * 7) + 6);
             status = "Cerrado"; //La diferencia con el tipo es que este cambia con el tiempo segun la duracion/permanencia.
         }
-        let capitalMinimo = (Math.floor(Math.random() * 21) + 1) * 20000;
-        let penalizacion = (Math.floor(Math.random() * 41) + 10)/100;
+        let capitalMinimo = parseFloat((Math.floor(Math.random() * 21) + 1) * 20000).toFixed(2);
+        let penalizacion = parseFloat((Math.floor(Math.random() * 41) + 10)/100).toFixed(2);
+        let duracion = (Math.floor(Math.random() * 24) + 2);
 
         let riesgos = ["Bajo", "Medio", "Alto"];
 
@@ -74,6 +75,7 @@ export default function PanelSuperior(props){
             tipo: "FIC",
             tipoFondo: tipoFondo,
             permanencia: permanencia,
+            duracion: duracion,
             capitalMinimo: capitalMinimo,
             penalizacion: penalizacion,
             status: status,
@@ -102,7 +104,7 @@ export default function PanelSuperior(props){
             productos.push(nuevo)
         }
 
-        setProductosFinancieros(productos)
+        setProductosFinancieros([...productos])
     },[setProductosFinancieros, nuevoCDT, nuevoFIC])
 
     useEffect(()=>{
@@ -112,7 +114,7 @@ export default function PanelSuperior(props){
     return(
         <Slider className="Panel-Superior" {...settings}>
             {productosFinancieros.map((producto)=>{
-                return(<ProductoFinanciero datos={producto} numMes={numMes}/>)
+                return(<ProductoFinanciero datos={producto} numMes={numMes} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas} productosFinancieros={productosFinancieros} setProductosFinancieros={setProductosFinancieros} />)
             })}
         </Slider>
     )
