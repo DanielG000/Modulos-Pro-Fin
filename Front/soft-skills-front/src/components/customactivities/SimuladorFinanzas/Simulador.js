@@ -140,10 +140,16 @@ export default function Simulador(props){
                 estrato: 3,
                 valor: 25000000,
                 tienes: false,
-                suscripcion: {
-                    nombre: "Impuestos",
-                    nuevoValor: (num) =>{return (num + 43875)}
-                }
+                suscripcion: [
+                    {
+                        nombre: "Impuestos", 
+                        nuevoValor: (num)=>{return (num + 43855)}
+                    },
+                    {
+                        nombre: "Arriendo",
+                        nuevoValor: (num)=>{return 0}
+                    }
+                ] 
             },
             {
                 nombre: "Moto",
@@ -182,30 +188,36 @@ export default function Simulador(props){
                 tipo: "Mascota",
                 tienes: false,
                 valor: 300000,
-                suscripcion: {
-                    nombre: "Mercado",
-                    nuevoValor: (num) => {return (num + 60000)}
-                }
+                suscripcion: [
+                    {
+                        nombre: "Mercado",
+                        nuevoValor: (num) => {return (num + 60000)}
+                    }
+                ]
             },
             {
                 nombre: "Gato",
                 tipo: "Mascota",
                 tienes: false,
                 valor: 300000,
-                suscripcion: {
-                    nombre: "Mercado",
-                    nuevoValor: (num) => {return (num + 60000)}
-                }
+                suscripcion: [
+                    {
+                        nombre: "Mercado",
+                        nuevoValor: (num) => {return (num + 60000)}
+                    }
+                ]
             },
             {
                 nombre: "Computadora",
                 tipo: "Objeto",
                 tienes: false,
                 valor: 1800000,
-                suscripcion: {
-                    nombre: "Servicios Agua/Electricidad/Gas",
-                    nuevoValor: (num) => {return (num + parseInt(num/2))}
-                }
+                suscripcion: [
+                    {
+                        nombre: "Servicios Agua/Electricidad/Gas",
+                        nuevoValor: (num) => {return (num + parseInt(num/2))}
+                    }
+                ]
             },
             {
                 nombre: "Nevera",

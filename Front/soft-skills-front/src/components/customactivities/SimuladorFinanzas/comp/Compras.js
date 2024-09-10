@@ -24,7 +24,7 @@ export default function Compras(props){
 
         sub.forEach((elem, index)=>{
             if(elem.nombre === nombre){
-                console.log("sub foreach",nombre, funcionValor);
+                alert(`sub foreach: ${nombre}, ${funcionValor}`);
                 id = index;
                 elem.valor = funcionValor(elem.valor);
             }
@@ -62,17 +62,12 @@ export default function Compras(props){
         lista.forEach((elem)=>{
             if(elem.nombre === nombre && resto >= 0){
                 elem.tienes = true;
-                if(typeof(elem.suscripcion) === typeof([])){
-                    let sublista = elem.suscripcion;
-                    for(let i = 0; i < sublista.length ;i++){
-                        console.log("sublista for");
-                        console.log(sublista);
-                        suscribir(sublista[i].nombre, sublista[i].nuevoValor)
-                    }
-                }else if(typeof(elem.suscripcion) === typeof({})){
-                    console.log("sub");
-                    console.log(elem.suscripcion);
-                    suscribir(elem.suscripcion.nombre, elem.suscripcion.nuevoValor);
+                //llega hasta aqui y no suscribe las resposabilidades
+
+                let sublista = elem.suscripcion;
+                for(let i = 0; i < sublista.length ;i++){
+                    alert("sublista for");
+                    suscribir(sublista[i].nombre, sublista[i].nuevoValor)
                 }
             }
         })
