@@ -29,8 +29,8 @@ export default function PanelSuperior(props){
         let tiposPago = ["Mensual", "Final"];
 
         let tipoPago = tiposPago[(Math.floor(Math.random() * 2))]
-        let interesEA = parseFloat((Math.floor(Math.random() * 6) + 8)/100).toFixed(2);
-        let interesMensual = (Math.pow((1 + interesEA),(1/12)) -1).toFixed(2);
+        let interesEA = Number(((Math.floor(Math.random() * 6) + 8)/100).toFixed(2));
+        let interesMensual = Number((( Math.pow((1 + interesEA),(30/360)) ) - 1).toFixed(4));
         let duracion = (Math.floor(Math.random() * 24) + 2);
         let capitalMinimo = (Math.floor(Math.random() * 20) + 1) * 50000;
 

@@ -52,7 +52,7 @@ export default function Simulador(props){
     const calificar = useCallback(()=>{
         let puntaje = 0;
 
-        setCalificacion()
+        setCalificacion(puntaje)
     },[])
 
     //Final de la simulacion
@@ -60,8 +60,9 @@ export default function Simulador(props){
         if(numMes + 1 === 35){
             setDeshabilitado(!deshabilitar);
             setFinal(!final);
+            calificar()
         }
-    },[numMes, deshabilitar])
+    },[numMes, deshabilitar, final, calificar])
 
     //funcion paso a paso
     const siguiente = useCallback(()=>{
