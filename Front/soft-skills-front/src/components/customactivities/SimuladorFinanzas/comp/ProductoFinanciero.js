@@ -135,7 +135,7 @@ export default function ProductoFinanciero(props){
         }
     },[datos, ultimoPago, retirar])
 
-    const rendimiento = useCallback((numMes, ultimoRendimiento)=>{
+    const rendimiento = useCallback((numMes)=>{
         let productos = productosFinancieros;
 
         if(datos.tipo === "CDT" && ultimoRendimiento !== numMes){
@@ -171,7 +171,7 @@ export default function ProductoFinanciero(props){
         productos[datos.id] = {...datos};
         setProductosFinancieros([...productos]);
 
-    },[datos, productosFinancieros, setProductosFinancieros]);
+    },[datos, productosFinancieros, setProductosFinancieros, ultimoRendimiento]);
 
     const estado = useCallback((numMes)=>{
         let productos = productosFinancieros;
@@ -204,6 +204,14 @@ export default function ProductoFinanciero(props){
 
     },[datos, productosFinancieros, setProductosFinancieros]);
 
+    const rendir = useCallback((numMes)=>{
+        if(ultimoRendimiento !== numMes){
+            //se ejecuta 2 veces//Hay que solucionarlo
+            rendimiento(numMes, ultimoRendimiento);
+        }else if(ultimoPago !== numMes){
+            pago(numMes);
+        }
+    },[ultimoRendimiento, ultimoPago, rendimiento, pago])
 
     const mostrarCDT = useCallback(()=>{
         return(
@@ -288,13 +296,8 @@ export default function ProductoFinanciero(props){
 
     useEffect(()=>{
         estado(numMes)
-        if(ultimoRendimiento !== numMes){
-            //se ejecuta 2 veces//Hay que solucionarlo
-            rendimiento(numMes, ultimoRendimiento);
-        }else if(ultimoPago !== numMes){
-            pago(numMes);
-        }
-    },[numMes, ultimoPago, ultimoRendimiento, estado, rendimiento, pago]);
+        rendir(numMes)
+    },[numMes, estado, rendir]);
 
     return(
         <div className="Producto-Financiero">

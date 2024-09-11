@@ -4,7 +4,7 @@ import AgregarCuentas from "./AgregarCuentas";
 
 export default function PanelCuentas(props){
 
-    const { listaCuentas, setListaCuentas } = props;
+    const { numMes, listaCuentas, setListaCuentas } = props;
 
 
     return (
@@ -15,7 +15,7 @@ export default function PanelCuentas(props){
 
                 {listaCuentas.map((cuenta)=>{
                     return(
-                        <Cuenta datos={cuenta} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
+                        <Cuenta numMes={numMes} datos={cuenta} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
                     )
                 })}
             </div>

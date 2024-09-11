@@ -24,7 +24,6 @@ export default function Compras(props){
 
         sub.forEach((elem, index)=>{
             if(elem.nombre === nombre){
-                alert(`sub foreach: ${nombre}, ${funcionValor}`);
                 id = index;
                 elem.valor = funcionValor(elem.valor);
             }
@@ -47,6 +46,7 @@ export default function Compras(props){
     const comprar = useCallback((cuenta)=>{
         let lista = [...productos];
         let lista2 =[...listaCuentas];
+        let tipo = "";
         let id = -1;
         let resto = -1;
 
@@ -54,25 +54,28 @@ export default function Compras(props){
         lista2.forEach((elem, index)=>{
             if(elem.nombre === cuenta){
                 id = index;
+                tipo = elem.tipo;
                 resto = parseInt(elem.saldo - cantidad);
-                console.log(resto);
             }
         })
 
         lista.forEach((elem)=>{
-            if(elem.nombre === nombre && resto >= 0){
+            if(elem.nombre === nombre && tipo !== "Credito" && resto >= 0){
                 elem.tienes = true;
-                //llega hasta aqui y no suscribe las resposabilidades
-
                 let sublista = elem.suscripcion;
                 for(let i = 0; i < sublista.length ;i++){
-                    alert("sublista for");
+                    suscribir(sublista[i].nombre, sublista[i].nuevoValor)
+                }
+            }else if(elem.nombre === nombre && tipo === "Credito"){
+                elem.tienes = true;
+                let sublista = elem.suscripcion;
+                for(let i = 0; i < sublista.length ;i++){
                     suscribir(sublista[i].nombre, sublista[i].nuevoValor)
                 }
             }
         })
         
-        if(resto < 0){
+        if(resto < 0 && tipo !== "Credito"){
             alert("Saldo insuficiente");
             setCantidad(0);
             setNombre("");

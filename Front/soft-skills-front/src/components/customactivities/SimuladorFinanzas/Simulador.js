@@ -247,7 +247,7 @@ export default function Simulador(props){
         <div className="Simulador-Finanzas">
             <Fecha numMes={numMes}/>
             <PanelSuperior numMes={numMes} productosFinancieros={productosFinancieros} listaCuentas={listaCuentas} setProductosFinancieros={setProductosFinancieros} setListaCuentas={setListaCuentas}/>
-            <PanelCuentas listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
+            <PanelCuentas numMes={numMes} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
             <PanelInferior salario={salario} saldo={saldo} suscripciones={suscripciones} setSuscripciones={setSuscripciones} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas} productos={productos} setProductos={setProductos} />
             <button className="Boton-Siguiente" onClick={siguiente} disabled={deshabilitar}>Siguiente</button>
             

@@ -1,9 +1,10 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 export default function Cuenta(props){
 
-    const { datos, listaCuentas, setListaCuentas } = props;
+    const { numMes, datos, listaCuentas, setListaCuentas } = props;
+    const [ ultimoInteres, setUltimoInteres] = useState(0)
 
     // Banderas para menu pop up
     const [ informacion, setInformacion ] = useState(false);
@@ -59,6 +60,41 @@ export default function Cuenta(props){
         }
     },[listaCuentas, origen, destino, cantidad, setListaCuentas])
 
+    const credito = useCallback((numMes)=>{
+        if(datos.tipo === "Credito" && numMes !== ultimoInteres && datos.saldo < 0){
+            let lista = listaCuentas;
+            let saldo = 0;
+            lista.forEach((elem, index)=>{
+                if(elem.nombre === datos.nombre){
+                    saldo = Number( (elem.saldo + (elem.saldo * Number((elem.interes/100) / 12).toFixed(4))).toFixed(2))
+                    elem.saldo = saldo;
+                }
+            })
+            setListaCuentas([...lista]);
+            setUltimoInteres(numMes);
+        }
+    },[datos, ultimoInteres, listaCuentas, setListaCuentas])
+
+    const debito = useCallback((numMes)=>{
+        if(datos.tipo === "Debito" && numMes !== ultimoInteres && datos.saldo > 0){
+            let lista = listaCuentas;
+            let saldo = 0;
+            lista.forEach((elem, index)=>{
+                if(elem.nombre === datos.nombre){
+                    saldo = Number( (elem.saldo + (elem.saldo * Number((elem.interes/100) / 12).toFixed(4))).toFixed(2))
+                    elem.saldo = saldo;
+                }
+            })
+            setListaCuentas([...lista]);
+            setUltimoInteres(numMes);
+        }
+    },[datos, ultimoInteres, listaCuentas, setListaCuentas])
+
+    useEffect(()=>{
+        credito(numMes);
+        debito(numMes)
+    },[numMes, credito, debito])
+
     return (
         <button className="Cuenta" onClick={abrirCerrarInformacion}>
             {datos.nombre}: {datos.saldo}
@@ -71,7 +107,7 @@ export default function Cuenta(props){
                     <p className="Nombre">Nombre: {datos.nombre}</p>
                     <p className="Tipo">Tipo: {datos.tipo}</p>
                     <p className="Saldo">Saldo: {datos.saldo}</p>
-                    <p className="Interes">Interes: {datos.interes}</p>
+                    <p className="Interes">Interes: {datos.interes}%</p>
                 </ModalBody>
                 <ModalFooter>
                     <button onClick={()=>{
