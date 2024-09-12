@@ -18,6 +18,7 @@
 }
 
 .Juego-Serpiente {
+    background-color: darkgray;
     height: 80vh;
     width: 92vw;
     margin-top: 1%;
@@ -35,9 +36,9 @@
     top: 3vh;
     left: 3vh;
     height: 10vh;
-    width: 40vh;
-    background-color: #fff;
-    border: 1px solid #000;
+    width: 55vh;
+    color: white;
+    background-color: gray;
     border-radius: 8px;
     float: left;
 }
@@ -53,9 +54,9 @@
     top: 3vh;
     left: 6vh;
     height: 10vh;
-    width: 30vh;
-    background-color: #fff;
-    border: 1px solid #000;
+    width: 25vh;
+    background-color: gray;
+    color: white;
     border-radius: 8px;
     float: left;
 }
@@ -71,9 +72,9 @@
     top: 3vh;
     left: 9vh;
     height: 10vh;
-    width: 40vh;
-    background-color: #fff;
-    border: 1px solid #000;
+    width: 50vh;
+    background-color: gray;
+    color: white;
     border-radius: 8px;
     float: left;
 }
@@ -118,11 +119,16 @@
     top: 3vh;
     left: 12vh;
     height: 10vh;
-    width: 20vh;
-    background-color: #fff;
-    border: 1px solid #000;
+    width: 30vh;
+    background-color: gray;
+    color: white;
     border-radius: 8px;
     padding-left: 2vh;
+}
+
+.Contador h2{
+    position: relative;
+    top: 18%;
 }
 
 /*Boton*/
@@ -141,10 +147,9 @@
     position: relative;
     top: 6vh;
     left: 3vh;
-    height: 60vh;
-    width: 60vh;
+    height: 58vh;
+    width: 75vh;
     background-color: #fff;
-    border: 1px solid #000;
     border-radius: 8px;
     float: left;
 }
@@ -163,6 +168,15 @@
     top: 6vh;
     left: 6vh;
     float: left;
+    color: black;
+    font-weight: bold;
+}
+
+.BotonTrampa button{
+    border-color: darkcyan;
+    border-radius: 16px;
+    color: white;
+    background-color: darkcyan;
 }
 
 .BotonNotificaciones {
@@ -172,6 +186,13 @@
     float: left;
 }
 
+.BotonNotificaciones button{
+    border-color: darkcyan;
+    border-radius: 16px;
+    color: white;
+    background-color: darkcyan;
+}
+
 .Musica {
     position: relative;
     top: 6vh;
@@ -179,5 +200,11 @@
     height: 50vh;
     width: 50vh;
     float: left;
-    border: 1px solid gray;
+}
+
+.Musica button{
+    border-color: darkcyan;
+    border-radius: 16px;
+    color: white;
+    background-color: darkcyan;
 }

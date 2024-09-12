@@ -29,7 +29,7 @@ export default function Tablero(props){
                 })
             }
 
-            canvas.fillStyle = 'green';
+            canvas.fillStyle = 'white';
             let x1 = serpiente.cabeza[0] * ancho;
             let y1 = serpiente.cabeza[1] * alto;
             canvas.fillRect(x1,y1,ancho,alto);

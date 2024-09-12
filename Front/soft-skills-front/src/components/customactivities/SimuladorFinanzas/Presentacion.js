@@ -17,8 +17,6 @@ export default function presentacion(props){
             {objective}
             <h3>Metodología</h3>
             {metodology}
-            <h3>Recursos</h3>
-            {resources}
             <h3>Introducción</h3>
             {introduction}
             <br/><br/>
