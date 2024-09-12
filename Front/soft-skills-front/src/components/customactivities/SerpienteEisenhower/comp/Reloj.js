@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 
 export default function Reloj(props){
 
-    const { tiempo , interruptor } = props;
+    const { mapa , interruptor, setInterruptor} = props;
+
+    const tiempo = mapa.tiempo;
 
     const [ minutos, setMinutos ] = useState(tiempo);
     const [ segundos, setSegundos] = useState(0);
+
+    
 
 
     useEffect(()=>{
@@ -17,7 +21,7 @@ export default function Reloj(props){
                 }else if(segundos > 0){
                     setSegundos(segundos - 1);
                 }else if(segundos === 0){
-
+                    setInterruptor(false)
                 }
             }else{
                 setMinutos(tiempo);
@@ -28,7 +32,7 @@ export default function Reloj(props){
         return () => {
             clearInterval(inicio)
         };
-    },[segundos,minutos,interruptor,tiempo])
+    },[segundos,minutos,interruptor,tiempo, setInterruptor])
 
     return(
         <div className="Reloj">

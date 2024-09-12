@@ -440,20 +440,3 @@ export default function Simulador(props){
         </div>
     )
 }
-/*          
-            Deuda:{
-                Creditos: creditos,
-                TotalDeuda: totalDeuda,
-            },
-            Servicios:{
-                Suscripciones: subs,
-            },
-            Compras: compras,
-            Puntaje: {
-                PuntosAhorro: puntosAhorro,
-                PuntosInversion: puntosInversion,
-                PuntosServicios: puntosServicios,
-                PuntosCompras: puntosCompras,
-                Total: puntaje,
-            }
-*/

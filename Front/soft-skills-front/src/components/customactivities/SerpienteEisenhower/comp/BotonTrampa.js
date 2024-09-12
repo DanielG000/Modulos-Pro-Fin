@@ -8,7 +8,7 @@ export default function BotonTrampa(props){
     return (
         <div className="BotonTrampa">
             <h4>Duplica tu puntaje!!</h4>
-            <button onClick={()=>setPuntaje(puntaje / 2)}>Click aquí!</button>
+            <button onClick={()=>setPuntaje(parseInt(puntaje / 2))}>Click aquí!</button>
         </div>
     )
 
