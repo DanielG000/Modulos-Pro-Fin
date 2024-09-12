@@ -87,7 +87,7 @@ export default function ProductoFinanciero(props){
 
         cuentas.forEach((element, index) => {
             if(element.nombre === datos.cuenta){
-                sumado = element.saldo + sumado;
+                sumado = Number((element.saldo + sumado).toFixed(2));
                 idOrigen = index;
             }
         });
@@ -127,9 +127,12 @@ export default function ProductoFinanciero(props){
             dinero = Number((datos.capitalInicial * datos.interesMensual).toFixed(2));
             
             alert(`CDT: ${datos.id} \n Recibiste: ${dinero} \n Retencion: 7% \n Neto:  ${dinero - (dinero * 0.07)}`)
-            
-            retirar(dinero, true);
-            setUltimoPago(numMes);
+            if(typeof(dinero) !== typeof(0.00)){
+                console.log("Operacion afectada", dinero, "No resulta un numero entero o flotante");
+            }else{
+                retirar(dinero, true);
+                setUltimoPago(numMes);
+            }
         }else if(datos.tipo === "CDT" && ((numMes - datos.fechaInicio) % datos.duracion ) === 0 && datos.fechaInicio !== numMes && datos.capital >= 1){
             alert(`CDT: ${datos.id} \n Puedes retirar tu dinero`)
         }
@@ -140,7 +143,8 @@ export default function ProductoFinanciero(props){
 
         if(datos.tipo === "CDT" && ultimoRendimiento !== numMes){
             let ganancia = 0;
-            ganancia = Number((datos.capital * datos.interesMensual).toFixed(2));
+            // se divide el interes del mes al rendir/ejecutarse dos veces cada mes
+            ganancia = Number((datos.capital * Number( (datos.interesMensual / 2).toFixed(6) ) ).toFixed(2));
             datos.capital = Number((datos.capital + ganancia).toFixed(2));
             setUltimoRendimiento(numMes)
         }else if (datos.tipo === "FIC" && ultimoRendimiento !== numMes){
@@ -206,7 +210,7 @@ export default function ProductoFinanciero(props){
 
     const rendir = useCallback((numMes)=>{
         if(ultimoRendimiento !== numMes){
-            //se ejecuta 2 veces//Hay que solucionarlo
+            //se ejecuta 2 veces// se vuelve una caracteristica, rinde quincenal.
             rendimiento(numMes, ultimoRendimiento);
         }else if(ultimoPago !== numMes){
             pago(numMes);
