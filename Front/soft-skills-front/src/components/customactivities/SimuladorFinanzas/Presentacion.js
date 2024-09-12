@@ -3,7 +3,7 @@ import React from "react";
 export default function presentacion(props){
 
     const { activity, comenzar } = props;
-    const { title, objective, metodology, resources, introduction} = activity;
+    const { title, objective, metodology, introduction} = activity;
 
     return (
         <div

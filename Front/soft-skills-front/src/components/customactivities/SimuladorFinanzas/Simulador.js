@@ -4,7 +4,7 @@ import Fecha from "./comp/Fecha";
 import PanelInferior from "./comp/PanelInferior";
 import PanelCuentas from "./comp/PanelCuentas";
 import PanelSuperior from "./comp/PanelSuperior";
-import { Modal } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import axios from "axios";
 import { Navigate } from "react-router-dom";
@@ -211,7 +211,7 @@ export default function Simulador(props){
         let cuentasDefault = [
             {
                 nombre: "Principal", 
-                tipo: "debito", 
+                tipo: "Debito", 
                 saldo: 2000000, 
                 interes: 0, 
                 cuota: 0
@@ -387,55 +387,64 @@ export default function Simulador(props){
             <button className="Boton-Siguiente" onClick={siguiente} disabled={deshabilitar}>Siguiente</button>
             
             <Modal isOpen={final}>
-                <div>
-                    <h2>Felicitaciones</h2>
-                    {calificacion}
-                    <h5>Estadisticas</h5>
-                    {final? (
-                        <table>
-                            <tr>
-                                <td>Inversion y Ahorro</td><td>Deuda</td><td>Servicios</td><td>Compras</td><td>Puntaje</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <ul>
-                                        <li>CDTs: {estadisticas["Inversion y Ahorro"].CDTs}</li>
-                                        <li>FICs: {estadisticas["Inversion y Ahorro"].FICs}</li>
-                                        <li>Cuentas Debito: {estadisticas["Inversion y Ahorro"].Debitos}</li>
-                                        <li>Cuentas Digitales: {estadisticas["Inversion y Ahorro"].Digital}</li>
-                                        <li>Dinero Total: {estadisticas["Inversion y Ahorro"].TotalDinero}</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Creditos: {estadisticas.Deuda.Creditos}</li>
-                                        <li>Deuda Total: {estadisticas.Deuda.TotalDeuda}</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    Cantidad de Servicios/Suscripciones: {estadisticas.Servicios.Suscripciones}
-                                </td>
-                                <td>
-                                    <ul>
-                                        {estadisticas.Compras.map((elem)=>{
-                                            return(<li>{elem}</li>)
-                                        })}
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Puntos por Ahorro: {estadisticas.Puntaje.PuntosAhorro}</li>
-                                        <li>Puntos por Invertir: {estadisticas.Puntaje.PuntosInversion}</li>
-                                        <li>Puntos por Presupuestos/Servicios: {estadisticas.Puntaje.PuntosServicios}</li>
-                                        <li>Puntos por Compras: {estadisticas.Puntaje.PuntosCompras}</li>
-                                        <li>Total: {estadisticas.Puntaje.Total}</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </table>
-                    ):(<div></div>)}
-                    <button onClick={finalizar}>Terminar</button>
-                </div>
+                <ModalHeader>
+                    <h1>Felicitaciones</h1>
+                    <p>calificacion: {calificacion}</p>
+                </ModalHeader>
+                <ModalBody>
+                <h4>Estadisticas</h4>
+                {final? (
+                    <table className="Final">
+                        <tr>
+                            <td>
+                                Inversion y Ahorro:
+                                <ul>
+                                    <li>CDTs: {estadisticas["Inversion y Ahorro"].CDTs}</li>
+                                    <li>FICs: {estadisticas["Inversion y Ahorro"].FICs}</li>
+                                    <li>Cuentas Debito: {estadisticas["Inversion y Ahorro"].Debitos}</li>
+                                    <li>Cuentas Digitales: {estadisticas["Inversion y Ahorro"].Digital}</li>
+                                    <li>Dinero Total: {estadisticas["Inversion y Ahorro"].TotalDinero}</li>
+                                </ul>
+                            </td>
+                            <td>
+                                Deuda:
+                                <ul>
+                                    <li>Creditos: {estadisticas.Deuda.Creditos}</li>
+                                    <li>Deuda Total: {estadisticas.Deuda.TotalDeuda}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                Cantidad de Servicios/Suscripciones: {estadisticas.Servicios.Suscripciones}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Compras:
+                                <ul>
+                                    {estadisticas.Compras.map((elem)=>{
+                                        return(<li>{elem}</li>)
+                                    })}
+                                </ul>
+                            </td>
+                            <td>
+                                Puntaje:
+                                <ul>
+                                    <li>Puntos por Ahorro: {estadisticas.Puntaje.PuntosAhorro}</li>
+                                    <li>Puntos por Invertir: {estadisticas.Puntaje.PuntosInversion}</li>
+                                    <li>Puntos por Servicios: {estadisticas.Puntaje.PuntosServicios}</li>
+                                    <li>Puntos por Compras: {estadisticas.Puntaje.PuntosCompras}</li>
+                                    <li>Total: {estadisticas.Puntaje.Total}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                ):(<div></div>)}
+                </ModalBody>
+                <ModalFooter>
+                <button onClick={finalizar}>Terminar</button>
+                </ModalFooter>
             </Modal>
         </div>
     )
