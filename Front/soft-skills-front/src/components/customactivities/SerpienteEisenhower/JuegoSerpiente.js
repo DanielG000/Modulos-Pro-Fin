@@ -61,7 +61,7 @@ export default function JuegoSerpiente(){
     const [ puntaje, setPuntaje] = useState(0);
     const [ interruptor, setInterruptor] = useState(false);
     // Los valores son los puntos que dan los fruto.
-    const [ valores, setValores] = useState(valoresDefault);
+    const [ valores, setValores] = useState([...valoresDefault]);
     const [ frutos, setFrutos ] = useState([]);
     const [ intentos, setIntentos ] = useState(0);
     // Finalización del juego
@@ -120,10 +120,10 @@ export default function JuegoSerpiente(){
     },[frutos])
 
     const racha = useCallback((tipo) => {
-        let nuevosValores = valores;
+        let nuevosValores = [...valores];
         // si atrapa un U reinicia todos los valores.
         if(tipo === 0){
-            nuevosValores = valoresDefault;
+            nuevosValores = [...valoresDefault];
 
         // si atrapa un UI suma 30 si es menor o igual a 89
         // su limite de crecimiento aqui es de 119.
@@ -188,7 +188,7 @@ export default function JuegoSerpiente(){
         setPuntaje(0)
         setIntentos(intentos + 1);
         setSerpiente({...serpienteDefault, cola: []});
-        setValores(valoresDefault)
+        setValores([...valoresDefault])
     },[intentos, serpienteDefault, valoresDefault])
 
     const moverse = () =>{
