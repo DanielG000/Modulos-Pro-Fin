@@ -114,7 +114,7 @@ export default function ProductoFinanciero(props){
     },[datos, listaCuentas, numMes, productosFinancieros, setListaCuentas, setProductosFinancieros])
 
 
-    const pago = useCallback((numMes)=>{
+    const pago = useCallback((numMes, ultimoPago)=>{
         let dinero = 0;
         if(datos.tipo === "CDT" && datos.tipoPago === "Final" && ((numMes - datos.fechaInicio) % datos.duracion) === 0 && numMes !== datos.fechaInicio && datos.cuenta !== null && datos.fechaInicio !== null ){
             dinero = Number((datos.capitalInicial * (Math.pow((1 + datos.interesMensual), datos.duracion) - 1)).toFixed(2));
@@ -123,31 +123,46 @@ export default function ProductoFinanciero(props){
             
             retirar(dinero, true);
             setUltimoPago(numMes);
+
+        }else if(datos.tipo === "CDT" && datos.tipoPago === "Final" && ultimoPago !== numMes){
+
+            setUltimoPago(numMes)
+
         }else if(datos.tipo === "CDT" && datos.tipoPago === "Mensual" && datos.cuenta !== null && ((numMes - datos.fechaInicio) % datos.duracion) !== 0 && numMes !== datos.fechaInicio && ultimoPago !== numMes){
             dinero = Number((datos.capitalInicial * datos.interesMensual).toFixed(2));
             
-            alert(`CDT: ${datos.id} \n Recibiste: ${dinero} \n Retencion: 7% \n Neto:  ${dinero - (dinero * 0.07)}`)
-            if(typeof(dinero) !== typeof(0.00)){
+
+            if(typeof(dinero) !== typeof(0)){
                 console.log("Operacion afectada", dinero, "No resulta un numero entero o flotante");
             }else{
-                retirar(dinero, true);
+                alert(`CDT: ${datos.id} \n Recibiste: ${dinero} \n Retencion: 7% \n Neto:  ${dinero - (dinero * 0.07)}`)
                 setUltimoPago(numMes);
+                retirar(dinero, true);
             }
-        }else if(datos.tipo === "CDT" && ((numMes - datos.fechaInicio) % datos.duracion ) === 0 && datos.fechaInicio !== numMes && datos.capital >= 1){
-            alert(`CDT: ${datos.id} \n Puedes retirar tu dinero`)
-        }
-    },[datos, ultimoPago, retirar])
 
-    const rendimiento = useCallback((numMes)=>{
+        }else if(datos.tipo === "CDT" && ((numMes - datos.fechaInicio) % datos.duracion ) === 0 && datos.fechaInicio !== numMes && datos.capital >= 1 && ultimoPago === numMes){
+            alert(`CDT: ${datos.id} \n Puedes retirar tu dinero`);
+        }
+    },[datos, retirar])
+
+    const rendimiento = useCallback((numMes, ultimoRendimiento)=>{
         let productos = productosFinancieros;
 
-        if(datos.tipo === "CDT" && ultimoRendimiento !== numMes){
+        if(datos.tipo === "CDT" && ultimoRendimiento !== numMes && datos.capital > 0){
+            setUltimoRendimiento(numMes);
             let ganancia = 0;
             // se divide el interes del mes al rendir/ejecutarse dos veces cada mes
-            ganancia = Number((datos.capital * Number( (datos.interesMensual / 2).toFixed(6) ) ).toFixed(2));
+            ganancia = Number((datos.capital * Number( datos.interesMensual ) ).toFixed(2));
             datos.capital = Number((datos.capital + ganancia).toFixed(2));
-            setUltimoRendimiento(numMes)
-        }else if (datos.tipo === "FIC" && ultimoRendimiento !== numMes){
+            
+            if(datos.ultimoRendimiento !== numMes){
+                datos.ultimoRendimiento = numMes;
+                productos[datos.id] = {...datos};
+                setProductosFinancieros([...productos]);
+            }
+
+        }else if (datos.tipo === "FIC" && ultimoRendimiento !== numMes && datos.capital !== 0){
+            setUltimoRendimiento(numMes);
             let rango =[0,0];
             let interes = 0.0;
             let ganancia = 0;
@@ -169,53 +184,68 @@ export default function ProductoFinanciero(props){
             ganancia = Number((datos.capital * (interes)).toFixed(2))
 
             datos.capital = Number(parseFloat(datos.capital + ganancia).toFixed(2));
-            setUltimoRendimiento(numMes)
+            
+            if(datos.ultimoRendimiento !== numMes){
+                datos.ultimoRendimiento = numMes;
+                productos[datos.id] = {...datos};
+                setProductosFinancieros([...productos]);
+            }
+        }else if(ultimoRendimiento !== numMes){
+            setUltimoRendimiento(numMes);
         }
 
-        productos[datos.id] = {...datos};
-        setProductosFinancieros([...productos]);
 
-    },[datos, productosFinancieros, setProductosFinancieros, ultimoRendimiento]);
+    },[datos, productosFinancieros, setProductosFinancieros]);
 
     const estado = useCallback((numMes)=>{
         let productos = productosFinancieros;
 
+        let status = datos.status;
+
         if(datos.tipo === "FIC" && datos.tipoFondo === "Cerrado"){
             let num = numMes % datos.duracion;
             if(num === 0){
-                datos.status = "Abierto"
+                status = "Abierto"
             }else{
-                datos.status = "Cerrado"
+                status = "Cerrado"
             }
         }else if(datos.tipo === "FIC" && datos.tipoFondo === "Abierto" && datos.permanencia !== null){
             if(datos.fechaInicio === null){
-                datos.status = "Abierto";
+                status = "Abierto";
             }else if(datos.fechaInicio !== null){
                 let actualMes = (numMes - datos.fechaInicio);
                 if(actualMes < datos.permanencia){
-                    datos.estado = "Cerrado";
+                    status = "Cerrado";
                 }else{
-                    datos.estado = "Abierto";
+                    status = "Abierto";
                 }
             }
-            datos.status = "Abierto";
+
         }else if(datos.tipo === "FIC" && datos.tipoFondo === "Abierto" && datos.permanencia === null){
-            datos.status = "Abierto";
+            
+            status = "Abierto";
+
         }
 
-        productos[datos.id] = {...datos};
-        setProductosFinancieros([...productos]);
+        if(datos.status !== status){
+            datos.status = status;
+            productos[datos.id] = {...datos};
+            setProductosFinancieros([...productos]);
+        }
 
     },[datos, productosFinancieros, setProductosFinancieros]);
 
-    const rendir = useCallback((numMes)=>{
-        if(ultimoRendimiento !== numMes){
-            //se ejecuta 2 veces// se vuelve una caracteristica, rinde quincenal.
+    const rendir = useCallback((numMes, ultimoRendimiento, ultimoPago)=>{
+        estado(numMes)
+        if(ultimoPago !== numMes && ultimoRendimiento !== numMes && datos.capital === 0){
+            setUltimoRendimiento(numMes);
+            setUltimoPago(numMes);
+        }else if(ultimoRendimiento !== numMes && ultimoPago === ultimoRendimiento){
             rendimiento(numMes, ultimoRendimiento);
-        }else if(ultimoPago !== numMes){
-            pago(numMes);
+        }else if(ultimoPago !== numMes && ultimoRendimiento === numMes && datos.tipo === "CDT"){
+            pago(numMes, ultimoPago);
         }
-    },[ultimoRendimiento, ultimoPago, rendimiento, pago])
+    },[datos, rendimiento, pago, estado])
 
     const mostrarCDT = useCallback(()=>{
         return(
@@ -299,12 +329,12 @@ export default function ProductoFinanciero(props){
 
 
     useEffect(()=>{
-        estado(numMes)
-        rendir(numMes)
-    },[numMes, estado, rendir]);
+        rendir(numMes, ultimoRendimiento, ultimoPago)
+    },[numMes, ultimoRendimiento, ultimoPago, rendir]);
+
 
     return(
-        <div className="Producto-Financiero">
+        <div className="Producto-Financiero" key={props.key}>
             <div>
                 {datos.id}
             </div>
@@ -354,12 +384,12 @@ export default function ProductoFinanciero(props){
                     Elejir Cuenta
                 </ModalHeader>
                 <ModalBody>
-                    {listaCuentas.map((elem)=>{
+                    {listaCuentas.map((elem, index)=>{
                         return(<button onClick={()=>{
                             setOrigen(elem.nombre)
                             abrirCerrarMontoD()
                             abrirCerrarElejirCuenta()
-                        }}>
+                        }} key={index}>
                             {elem.nombre}
                         </button>);
                     })}

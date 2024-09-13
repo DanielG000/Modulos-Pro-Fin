@@ -114,7 +114,7 @@ export default function PanelSuperior(props){
     return(
         <Slider className="Panel-Superior" {...settings}>
             {productosFinancieros.map((producto)=>{
-                return(<ProductoFinanciero datos={producto} numMes={numMes} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas} productosFinancieros={productosFinancieros} setProductosFinancieros={setProductosFinancieros} />)
+                return(<ProductoFinanciero datos={producto} key={producto.id} numMes={numMes} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas} productosFinancieros={productosFinancieros} setProductosFinancieros={setProductosFinancieros} />)
             })}
         </Slider>
     )

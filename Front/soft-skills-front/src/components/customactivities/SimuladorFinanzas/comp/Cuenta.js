@@ -127,7 +127,7 @@ export default function Cuenta(props){
                             elejirDestino(index);
                             abrirCerrarDestinos();
                             abrirCerrarMonto();
-                        }}>{elem.nombre}</button>)
+                        }} key={index}>{elem.nombre}</button>)
                     })}
                 </ModalBody>
                 <ModalFooter>

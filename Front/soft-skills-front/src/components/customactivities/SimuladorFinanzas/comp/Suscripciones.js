@@ -65,7 +65,7 @@ export default function Suscripciones(props){
                     <table>
                         <tr><td>Nombre</td><td>Tipo</td><td>Cuenta</td><td>Valor</td></tr>
                         {suscripciones.map((elem, index)=>(
-                            <tr>
+                            <tr key={index}>
                                 <td>
                                     {elem.nombre}
                                 </td>
@@ -81,7 +81,7 @@ export default function Suscripciones(props){
                                 <td>
                                     <button onClick={()=>{
                                         eliminar(index);
-                                    }} disabled={elem.tipo === "Obligatorio" ? true: false}>
+                                    }} disabled={elem.tipo === "Obligatorio" ? true: false} key={index}>
                                         -
                                     </button>
                                 </td>
@@ -126,8 +126,8 @@ export default function Suscripciones(props){
                                 actualizarNuevo(3, e.target.value);
                             } 
                         }} >
-                            {listaCuentas.map((elem)=>{
-                                return(<option value={elem.nombre}>{elem.nombre}</option>)
+                            {listaCuentas.map((elem, index)=>{
+                                return(<option value={elem.nombre} key={index}>{elem.nombre}</option>)
                             })}
                         </select>
                     </div>

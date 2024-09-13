@@ -332,7 +332,7 @@ export default function JuegoSerpiente(){
                 user_email: user.email,
                 activity_id: 12,
                 question_number: (index + 1),
-                answer_text: elem,
+                answer_text: (elem + ""),
             };
 
             await axios

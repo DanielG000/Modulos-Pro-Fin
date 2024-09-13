@@ -98,7 +98,7 @@ export default function Compras(props){
                     <table>
                         <tr><td>Nombre</td><td>Tipo</td><td>Estrato</td><td>Valor</td></tr>
                         {productos.map((elem, index)=>(
-                            <tr>
+                            <tr key={index}>
                                 <td>
                                     {elem.nombre}
                                 </td>
@@ -117,7 +117,7 @@ export default function Compras(props){
                                         setCantidad(elem.valor);
                                         abrirCerrarTienda()
                                         abrirCerrarPagar()
-                                    }} disabled={elem.tienes}>
+                                    }} disabled={elem.tienes} key={"Button-" + index}>
                                         Comprar
                                     </button>
                                 </td>
@@ -134,13 +134,13 @@ export default function Compras(props){
                     Cuenta
                 </ModalHeader>
                 <ModalBody>
-                    {listaCuentas.map((elem)=>{
+                    {listaCuentas.map((elem, index)=>{
                         return (
                             <button onClick={()=>{
                                 comprar(elem.nombre)
                                 abrirCerrarPagar();
                                 abrirCerrarTienda();
-                                }}>
+                                }} key={index}>
                                 {elem.nombre}
                             </button>
                         )

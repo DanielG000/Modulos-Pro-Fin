@@ -13,9 +13,9 @@ export default function PanelCuentas(props){
             <div className="Cuentas">
                 <AgregarCuentas listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
 
-                {listaCuentas.map((cuenta)=>{
+                {listaCuentas.map((cuenta, index)=>{
                     return(
-                        <Cuenta numMes={numMes} datos={cuenta} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
+                        <Cuenta numMes={numMes} key={index} datos={cuenta} listaCuentas={listaCuentas} setListaCuentas={setListaCuentas}/>
                     )
                 })}
             </div>

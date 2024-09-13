@@ -190,7 +190,7 @@ export default function Simulador(props){
             user_email: user.email,
             activity_id: 12,
             question_number: 1,
-            answer_text: calificacion,
+            answer_text: (calificacion + ""),
         };
 
         await axios
