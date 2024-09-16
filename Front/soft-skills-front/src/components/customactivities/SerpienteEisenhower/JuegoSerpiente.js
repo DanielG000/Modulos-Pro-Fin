@@ -306,7 +306,11 @@ export default function JuegoSerpiente(){
         if( nivel < 4){
             detenerSerpiente();
             let puntos = puntajes;
+            if(intentos > 0){
             puntos.push(parseInt(puntaje/intentos));
+            }else{
+            puntos.push(parseInt(puntaje));
+            }
             setPuntajes([...puntos]);
             setPuntaje(0);
             setFrutos([]);
@@ -330,7 +334,7 @@ export default function JuegoSerpiente(){
         puntajes.forEach(async(elem, index)=>{
             let answerData = {
                 user_email: user.email,
-                activity_id: 12,
+                activity_id: "9",
                 question_number: (index + 1),
                 answer_text: (elem + ""),
             };
@@ -347,6 +351,7 @@ export default function JuegoSerpiente(){
                 guardadosConExito = guardadosConExito && false;
             });
         })
+
 
         if(guardadosConExito){
             setFinal(false);

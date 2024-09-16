@@ -188,7 +188,7 @@ export default function Simulador(props){
 
         const answerData = {
             user_email: user.email,
-            activity_id: 12,
+            activity_id: "12",
             question_number: 1,
             answer_text: (calificacion + ""),
         };
@@ -199,7 +199,7 @@ export default function Simulador(props){
                 console.log(`Calificación guardada:`, response.data);
                 setFinal(false);
                 alert("Calificación guardada.");
-                return <Navigate to="/courses/4" />;
+                Navigate("/courses/4")
             })
             .catch((error) => {
                 alert("Error al guardar la calificación. \n\n Intenta nuevamente dentro de unos segundos.");
