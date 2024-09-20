@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
 
+import './Dashboard.css'
+
 const defaultTheme = createTheme();
 
 export default function Album() {
@@ -45,7 +47,7 @@ export default function Album() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <main>
+      <main className="scroll-courses">
         <ResponsiveAppBar />
         <ProfileInDashboard />
         <Container sx={{ py: 8 }} maxWidth="md">
