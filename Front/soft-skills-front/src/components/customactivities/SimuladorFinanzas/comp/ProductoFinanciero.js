@@ -405,7 +405,7 @@ export default function ProductoFinanciero(props){
             </Modal>
             <Modal isOpen={montoD}>
                 <ModalHeader>
-                    Depostiar
+                    Depositar
                 </ModalHeader>
                 <ModalBody>
                     Cantidad: <input onChange={(e)=>{
