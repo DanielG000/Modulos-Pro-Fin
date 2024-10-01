@@ -119,7 +119,7 @@ INSERT INTO activity (
     'Desarrollar planes o estrategias para incrementar tus ahorros o encontrar un balance entre ingresos y egresos.',
     '',
     '',
-    'Este simulador te permitira tener un vista diferente sobre tus finanzas. ayudandote a ver la importancia de la toma de deciciones sobre las finanzas personales.',
+    'Este simulador te permitira tener un vista diferente sobre tus finanzas. ayudandote a ver la importancia de la toma de decisiones sobre las finanzas personales.',
     '',
     'Basado el las cuentas, inversiones, deuda. Tambien teniendo en cuenta los ahorros o elecciones en compras o suscripciones.',
     '',

@@ -116,7 +116,7 @@ INSERT INTO activity (
     '9',
     'comp',
     'Serpiente Eisenhower',
-    'Alcanzar el mayor puntaje posible.',
+    'Alcanzar el mayor puntaje posible en cada nivel.',
     'Organizacion y concentración.',
     '',
     'Este juego de la serpiente tienes caracteristicas nuevas, es posible que por su nombre ya tengas una idea de como ganar.',
