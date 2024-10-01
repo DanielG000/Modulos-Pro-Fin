@@ -371,7 +371,7 @@ export default function ProductoFinanciero(props){
                     <button onClick={()=>{
                         abrirCerrarInformacion()
                         abrirCerrarElejirCuenta()
-                    }}>Depostiar</button>
+                    }}>Depositar</button>
                     <button onClick={()=>{
                         abrirCerrarInformacion();
                         abrirCerrarMontoR();
