@@ -35,10 +35,15 @@ INSERT INTO activity (
     10,
     '10',
     '',
+    'Videos Recomendados',
     '',
     '',
-    '',
-    '',
+    '<div>
+        <h3>El siguiente contenido pertenece a <a src="https://www.youtube.com/@MisPropiasFinanzas">Mis Propias Finanzas<a></h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/HTeJUNJtThI?si=Hcvhff-pEVhpkWAL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <h3>El siguiente contenido pertenece a <a src="https://www.youtube.com/@preahorro517">PreAhorro<a></h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/NtZI7oSJgZ0?si=2I2KKeuSzYILCJJX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>',
     '',
     '',
     '',
