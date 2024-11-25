@@ -38,6 +38,10 @@ INSERT INTO activity (
     'Videos Recomendados',
     '',
     '',
+    '',
+    '',
+    '',
+    '',
     '<div>
         <h3>El siguiente contenido pertenece a <a src="https://www.youtube.com/@carlosreyesf19">Carlos Reyes - Estudio y Productividad<a></h3>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/TpfjkBxAECs?si=bJRIXz6hi6pcOkhj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -45,10 +49,6 @@ INSERT INTO activity (
         <h3>El siguiente contenido pertenece a <a src="https://www.youtube.com/@ResumenAnimado">Resumen Animado<a></h3>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/LHtUrHUPs4E?si=ou53ZAxJ67cJZc_5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>',
-    '',
-    '',
-    '',
-    '',
     '',
     '',
     '',
