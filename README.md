@@ -19,11 +19,13 @@ Se crea el ambiente de python con cual cualquiera de las dos siguientes formas.
 Forma 1:
 
 > poetry install --no-root
+
 > poetry shell
 
 Forma 2:
 
 > python -m venv venv
+
 > source venv/bin/activate
 
 Instalamos las librerias
