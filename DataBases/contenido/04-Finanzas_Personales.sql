@@ -34,7 +34,7 @@ INSERT INTO activity (
 ) VALUES (
     10,
     '10',
-    '',
+    'text',
     'Videos Recomendados',
     '',
     '',
